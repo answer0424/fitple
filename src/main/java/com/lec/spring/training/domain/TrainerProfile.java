@@ -39,7 +39,8 @@ public class TrainerProfile {
     @Column(nullable = false)
     private GrantStatus isAccess;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
     @ToString.Exclude
     @Builder.Default
     private List<Certification> certificationList = new ArrayList<>();
