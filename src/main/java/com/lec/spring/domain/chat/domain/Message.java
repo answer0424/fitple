@@ -31,7 +31,7 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
-    private Boolean check;
+    private boolean isChecked;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
