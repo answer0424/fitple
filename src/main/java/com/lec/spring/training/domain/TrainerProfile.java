@@ -39,8 +39,7 @@ public class TrainerProfile {
     @Column(nullable = false)
     private GrantStatus isAccess;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Id")
+    @OneToMany(mappedBy = "trainerProfile", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
     private List<Certification> certificationList = new ArrayList<>();
