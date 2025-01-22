@@ -1,11 +1,10 @@
 package com.lec.spring.training.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lec.spring._common.domain.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -13,20 +12,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@DynamicUpdate
-@DynamicInsert
 @Entity(name = "Review")
-public class Review extends BaseEntity {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "Training_id", nullable = false)
-    @ToString.Exclude
-    @JsonIgnore
     private Training training;
 
     @Column(nullable = false)
@@ -34,5 +27,9 @@ public class Review extends BaseEntity {
 
     @Column
     private String content;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 }
 

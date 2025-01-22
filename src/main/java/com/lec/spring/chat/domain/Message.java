@@ -12,8 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @Entity(name = "Message")
 public class Message extends BaseEntity {
     @Id
@@ -22,6 +20,8 @@ public class Message extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "User_id", nullable = false)
+    @ToString.Exclude
+    @JsonIgnore
     private User user;
 
     @ManyToOne
@@ -35,5 +35,6 @@ public class Message extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isChecked;
+
 }
 

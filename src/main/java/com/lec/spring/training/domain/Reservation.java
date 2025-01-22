@@ -25,9 +25,6 @@ public class Reservation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(nullable = false)
-    private String title;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReservationStatus status;

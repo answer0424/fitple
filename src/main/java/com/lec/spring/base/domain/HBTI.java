@@ -1,16 +1,11 @@
 package com.lec.spring.base.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "HBTI")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Entity(name = "HBTI")
 public class HBTI {
     @Id
     private Long userId;

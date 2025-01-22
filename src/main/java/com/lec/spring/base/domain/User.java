@@ -29,31 +29,41 @@ public class User extends BaseEntity {
     @JsonIgnore
     private Gym gym;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, unique = true)
     private String username;
 
     @Column(nullable = false, length = 50)
+    @ToString.Exclude
+    @JsonIgnore
     private String password;
 
-    @Column(nullable = false, length = 257)
+    @Column(nullable = false, length = 257, unique = true)
     private String email;
 
     @Column(length = 200)
+    @ToString.Exclude
+    @JsonIgnore
     private String address;
 
     @Column
     private Date birth;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 45, unique = true)
     private String nickname;
 
     @Column(length = 10)
+    @ToString.Exclude
+    @JsonIgnore
     private String provider;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
+    @ToString.Exclude
+    @JsonIgnore
     private String providerId;
 
     @Column(length = 20)
+    @ToString.Exclude
+    @JsonIgnore
     private String authority;
 
     @Column(length = 50)
