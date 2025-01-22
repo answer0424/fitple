@@ -1,0 +1,98 @@
+{
+  "MICP": {
+    "shortDescription": "주로 트레드밀 위에서 달리며 스트레스를 해소하고 마음의 편화를 찾는 유형",
+    "fullDescription": "건강 증진을 목표로 즉흥적인 유산소 운동을 선호하며 개인 운동을 즐기는 유형입니다. 심폐 지구력 향상과 전반적인 건강 관리에 초점을 맞추되, 정해진 계획 없이 그날의 컨디션에 따라 운동 강도를 조절하는 특징이 있습니다.",
+    "dogImage": "/img/MICP.png",
+    "idealPT": "유연한 프로그램 조정이 가능하면서도 기초적인 근력 운동을 적절히 믹스할 수 있는 트레이너."
+  },
+  "MECP": {
+    "shortDescription": "달리기를 체계적으로 계획해서 좋은 기록을 목표로 하는 유형",
+    "fullDescription": "MECP (Medical-Exact-Cardio-Personal) 건강 증진을 목표로 계획적인 유산소 운동을 하며 개인 운동을 선호하는 유형입니다. 심폐 건강 향상을 위해 정확한 운동 계획을 세우고, 심박수와 운동 시간을 철저히 관리합니다.",
+    "dogImage": "/img/MECP.png",
+    "idealPT": "체계적인 프로그램을 제공하고 정확한 측정과 피드백이 가능한 트레이너."
+  },
+  "BICP": {
+    "shortDescription": "달리기할 때 스타일과 패션을 중시하며 아름다움을 즐기는 유형",
+    "fullDescription": "BICP (Beauty-Improvised-Cardio-Personal) 체형 관리를 목표로 즉흥적인 유산소 운동을 선호하며 개인 운동을 즐기는 유형입니다. 체중 감량과 바디라인 개선에 관심이 많으나, 엄격한 계획보다는 그날의 컨디션과 기분에 따라 자유롭게 운동합니다.",
+    "dogImage": "/img/BICP.png",
+    "idealPT": "체형 관리에 전문성이 있으면서도 유연한 프로그램 운영이 가능한 트레이너."
+  },
+  "BECP": {
+    "shortDescription": "운주로 달리기를 통해 체력과 건강을 유지하는 유형",
+    "fullDescription": "BECP (Beauty-Exact-Cardio-Personal) 체형 관리를 목표로 계획적인 유산소 운동을 하며 개인 운동을 선호하는 유형입니다. 정확한 칼로리 소모량과 운동 시간을 계산하여 체계적인 다이어트 계획을 세우고 실천합니다.",
+    "dogImage": "/img/BECP.png",
+    "idealPT": "체계적인 체형 관리 프로그램을 제공하고 정확한 측정과 피드백이 가능한 트레이너."
+  },
+  "MICG": {
+    "shortDescription": "그룹으로 모여서 스프린트를 하면서 스트레스를 날리고 즐거움을 찾는 유형",
+    "fullDescription": "MICG (Medical-Improvised-Cardio-Group) 건강 증진을 목표로 즉흥적인 유산소 운동을 선호하며 단체 운동을 즐기는 유형입니다. 심폐 건강 향상을 위해 그룹 운동에 참여하되, 강도나 시간을 유연하게 조절합니다.",
+    "dogImage": "/img/MICG.png",
+    "idealPT": "그룹 수업 진행 경험이 풍부하면서도 개개인의 건강 상태를 고려할 수 있는 트레이너."
+  },
+  "MECG": {
+    "shortDescription": "그룹과 함께 체계적으로 스프린트 연습을 하면서 기록 향상을 목표로 하는 유형",
+    "fullDescription": "MECG (Medical-Exact-Cardio-Group) 건강 증진을 목표로 계획적인 유산소 운동을 하며 단체 운동을 즐기는 유형입니다. 체계적인 그룹 운동 프로그램에 참여하여 심폐 건강을 관리하며, 정확한 운동 강도와 시간을 지키는 것을 중요하게 여깁니다.",
+    "dogImage": "/img/MECG.png",
+    "idealPT": "체계적인 그룹 프로그램을 설계하고 운영할 수 있는 트레이너."
+  },
+  "BICG": {
+    "shortDescription": "그룹과 함께 멋지고 스타일리시하게 스프린트를 즐기는 유형",
+    "fullDescription": "BICG (Beauty-Improvised-Cardio-Group) 체형 관리를 목표로 즉흥적인 유산소 운동을 선호하며 단체 운동을 즐기는 유형입니다. 즐거운 분위기 속에서 자유롭게 체형 관리를 하는 것을 선호하며, 그룹 댄스나 에어로빅과 같은 활동적인 단체 운동을 즐깁니다.",
+    "dogImage": "/img/BICG.png",
+    "idealPT": "활기찬 에너지로 그룹의 분위기를 이끌 수 있으면서도 체형 관리에 전문성을 갖춘 트레이너."
+  },
+  "BECG": {
+    "shortDescription": "그룹으로 모여서 스프린트를 통해 건강과 체력을 기르는 유형",
+    "fullDescription": "BECG (Beauty-Exact-Cardio-Group) 체형 관리를 목표로 계획적인 유산소 운동을 하며 단체 운동을 즐기는 유형입니다. 체계적인 그룹 피트니스 프로그램을 통해 목표 체중과 체형을 관리하며, 정확한 운동 강도와 시간 관리를 중요시합니다.",
+    "dogImage": "/img/BECG.png",
+    "idealPT": "체계적인 그룹 다이어트 프로그램을 운영할 수 있는 트레이너."
+  },
+  "MINP": {
+    "shortDescription": "근력 훈련을 통해 마음의 평화를 유지하는 유형",
+    "fullDescription": "MINP (Medical-Improvised-Non-cardio-Personal) 건강 증진을 목표로 즉흥적인 근력 운동을 선호하며 개인 운동을 즐기는 유형입니다. 전반적인 건강과 근력 향상을 위해 운동하되, 정해진 계획 없이 그날의 컨디션에 따라 운동 강도를 조절합니다.",
+    "dogImage": "/img/MINP.png",
+    "idealPT": "기초적인 의학 지식을 바탕으로 안전한 근력 운동을 지도할 수 있는 트레이너."
+  },
+  "MENP": {
+    "shortDescription": "근력 훈련을 계획적으로 해서 근력을 최대한으로 키우는 유형",
+    "fullDescription": "MENP (Medical-Exact-Non-cardio-Personal) 건강 증진을 목표로 계획적인 근력 운동을 하며 개인 운동을 선호하는 유형입니다. 체계적인 건강관리를 위해 정확한 운동 프로그램을 따르며, 세트 수와 중량을 꼼꼼히 기록합니다.",
+    "dogImage": "/img/MENP.png",
+    "idealPT": "과학적인 트레이닝 방법론을 기반으로 정확한 운동 처방을 할 수 있는 트레이너."
+  },
+  "BINP": {
+    "shortDescription": "근력 훈련을 통해 멋진 몸매를 만드는 유형",
+    "fullDescription": "BINP (Beauty-Improvised-Non-cardio-Personal) 체형 관리를 목표로 즉흥적인 근력 운동을 선호하며 개인 운동을 즐기는 유형입니다. 근육 라인과 체형 개선에 관심이 많으나, 엄격한 계획보다는 그날의 컨디션에 따라 자유롭게 운동합니다.",
+    "dogImage": "/img/BINP.png",
+    "idealPT": "체형 교정과 근육 발달에 전문성이 있으면서도 유연한 프로그램 운영이 가능한 트레이너."
+  },
+  "BENP": {
+    "shortDescription": "건강하고 근육질의 몸을 만들기 위해 근력 훈련을 하는 유형",
+    "fullDescription": "BENP (Beauty-Exact-Non-cardio-Personal) 체형 관리를 목표로 계획적인 근력 운동을 하며 개인 운동을 선호하는 유형입니다. 이상적인 체형을 위해 세트, 무게, 휴식 시간까지 정확히 계획하고 실천합니다.",
+    "dogImage": "/img/BENP.png",
+    "idealPT": "정확한 목표 설정과 단계별 접근이 가능한 트레이너."
+  },
+  "MING": {
+    "shortDescription": "그룹과 함께 근력 훈련을 통해 건강과 웰빙을 추구하는 유형",
+    "fullDescription": "MING (Medical-Improvised-Non-cardio-Group) 건강 증진을 목표로 즉흥적인 근력 운동을 선호하며 단체 운동을 즐기는 유형입니다. 전반적인 건강과 근력 향상을 위해 그룹 운동에 참여하되, 강도나 횟수를 유연하게 조절합니다.",
+    "dogImage": "/img/MING.png",
+    "idealPT": "그룹 수업 진행 경험이 풍부하면서도 개개인의 건강 상태를 고려할 수 있는 트레이너."
+  },
+  "MENG": {
+    "shortDescription": "그룹으로 모여서 체계적인 근력 훈련 계획을 세워 성과를 내고자 하는 유형",
+    "fullDescription": "MENG (Medical-Exact-Non-cardio-Group) 건강 증진을 목표로 계획적인 근력 운동을 하며 단체 운동을 즐기는 유형입니다. 체계적인 그룹 운동 프로그램에 참여하여 근력을 관리하며, 정확한 운동 강도와 횟수를 지키는 것을 중요하게 여깁니다.",
+    "dogImage": "/img/MENG.png",
+    "idealPT": "체계적인 그룹 근력 프로그램을 설계하고 운영할 수 있는 트레이너."
+  },
+  "BING": {
+    "shortDescription": "그룹으로 모여서 운동을 하며 스타일과 패션을 중요하게 생각하며 운동을 하나의 패션 트렌드로 여기는 유형",
+    "fullDescription": "BING (Beauty-Improvised-Non-cardio-Group) 체형 관리를 목표로 즉흥적인 근력 운동을 선호하며 단체 운동을 즐기는 유형입니다. 근육 발달과 체형 개선을 위해 그룹 운동에 참여하되, 계획에 얽매이지 않고 자유롭게 운동하는 것을 선호합니다.",
+    "dogImage": "/img/BING.png",
+    "idealPT": "체형 개선에 전문성이 있으면서도 즐거운 그룹 분위기를 만들 수 있는 트레이너."
+  },
+  "BENG": {
+    "shortDescription": "그룹으로 함께 운동하면서 체력과 건강을 유지하는 것을 목표로 하며 그룹과 함께 서로 동기 부여를 얻는 유형",
+    "fullDescription": "BENG (Beauty-Exact-Non-cardio-Group) 체형 관리를 목표로 계획적인 근력 운동을 하며 단체 운동을 즐기는 유형입니다. 체계적인 근력 운동 프로그램을 통해 이상적인 체형을 추구하며, 정확한 운동 방법과 루틴을 중요하게 여깁니다.",
+    "dogImage": "/img/BENG.png",
+    "idealPT": "체계적인 체형 관리 프로그램을 그룹에 맞춰 설계하고 진행할 수 있는 트레이너."
+  }
+}
