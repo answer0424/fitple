@@ -1,12 +1,13 @@
-package com.lec.spring.domain.training.domain;
+package com.lec.spring.training.domain;
 
-import com.lec.spring.domain.base.domain.User;
+import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -37,5 +38,14 @@ public class TrainerProfile {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private GrantStatus grant;
+
+    @OneToMany
+    @ToString.Exclude
+    @Builder.Default
+    private List<Certification> certificationList = new ArrayList<>();
+
+    public void addCertificationList(Certification... certificationList) {
+        Collections.addAll(this.certificationList, certificationList);
+    }
 }
 

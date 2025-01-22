@@ -1,4 +1,4 @@
-package com.lec.spring.domain.chat.domain;
+package com.lec.spring.training.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 @Getter
@@ -13,12 +14,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class UserChatId implements Serializable {
+public class CertificationId implements Serializable {
 
-    @Column(name = "userId")
-    private Long userId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "chatId")
-    private Long chatId;
+    @Column(name = "TrainerProfile_id")
+    private Long trainerProfileId;
 }
 

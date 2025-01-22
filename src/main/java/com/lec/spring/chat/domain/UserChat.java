@@ -1,6 +1,6 @@
-package com.lec.spring.domain.chat.domain;
+package com.lec.spring.chat.domain;
 
-import com.lec.spring.domain.base.domain.User;
+import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

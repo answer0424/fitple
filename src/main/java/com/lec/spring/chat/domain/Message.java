@@ -1,11 +1,10 @@
-package com.lec.spring.domain.chat.domain;
+package com.lec.spring.chat.domain;
 
-import com.lec.spring.domain.base.domain.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lec.spring._common.domain.BaseEntity;
+import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,8 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "Message")
-public class Message {
+public class Message extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
@@ -25,6 +26,8 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "Chat_id", nullable = false)
+    @ToString.Exclude
+    @JsonIgnore
     private Chat chat;
 
     @Column(nullable = false)
@@ -32,9 +35,5 @@ public class Message {
 
     @Column(nullable = false)
     private Boolean check;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
 }
 

@@ -1,7 +1,7 @@
-package com.lec.spring.domain.training.domain;
+package com.lec.spring.training.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lec.spring.domain.base.domain.User;
+import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 

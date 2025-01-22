@@ -1,4 +1,4 @@
-package com.lec.spring.domain.chat.DTO;
+package com.lec.spring.training.DTO;
 
 public class KBS {
     //깃으로 폴더 주기 위한 짜가입니다 알아서 삭제들 하셔요

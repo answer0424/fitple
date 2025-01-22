@@ -1,4 +1,4 @@
-package com.lec.spring.domain.training.domain;
+package com.lec.spring.training.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -24,6 +24,9 @@ public class Reservation {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
+    @Column(nullable = false)
+    private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

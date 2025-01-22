@@ -1,11 +1,16 @@
-package com.lec.spring.domain.base.domain;
+package com.lec.spring.base.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "HBTI")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity(name = "HBTI")
 public class HBTI {
     @Id
     private Long userId;
@@ -18,14 +23,14 @@ public class HBTI {
     private String hbti;
 
     @Column(nullable = false)
-    private Double col1;
+    private Double mbScore;
 
     @Column(nullable = false)
-    private Double col2;
+    private Double eiScore;
 
     @Column(nullable = false)
-    private Double col3;
+    private Double cnScore;
 
     @Column(nullable = false)
-    private Double col4;
+    private Double pgScore;
 }

@@ -1,7 +1,7 @@
-package com.lec.spring.domain.base.domain;
+package com.lec.spring.base.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lec.spring.domain.BaseEntity;
+import com.lec.spring._common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;

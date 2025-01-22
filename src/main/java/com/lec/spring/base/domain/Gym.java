@@ -1,4 +1,4 @@
-package com.lec.spring.domain.base.domain;
+package com.lec.spring.base.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
