@@ -37,7 +37,7 @@ public class TrainerProfile {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private GrantStatus grant;
+    private GrantStatus isAccess;
 
     @OneToMany
     @ToString.Exclude

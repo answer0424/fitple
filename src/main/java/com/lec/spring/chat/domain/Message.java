@@ -34,6 +34,6 @@ public class Message extends BaseEntity {
     private String content;
 
     @Column(nullable = false)
-    private Boolean check;
+    private boolean isChecked;
 }
 
