@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class HBTI {
     @Id
-    private Long userId;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "UserId", nullable = false)
