@@ -16,7 +16,7 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Training_id", nullable = false)
+    @JoinColumn(name = "TrainingId", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private Training training;
@@ -29,7 +29,7 @@ public class Reservation {
     @Column(nullable = false)
     private ReservationStatus status;
 
-    @Column(name = "start_time")
+    @Column(name = "startTime")
     @Temporal(TemporalType.TIME)
     private Date startTime;
 

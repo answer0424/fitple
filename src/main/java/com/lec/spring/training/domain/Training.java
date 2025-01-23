@@ -21,13 +21,13 @@ public class Training {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "TrainerId", nullable = false)
+    @JoinColumn(name = "trainerId", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private User trainer;
