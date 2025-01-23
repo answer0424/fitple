@@ -8,8 +8,11 @@ import com.lec.spring.base.repository.HbtiRepository;
 import com.lec.spring.base.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -41,25 +44,34 @@ public class HbtiService {
      * @return 각 성향의 퍼센트 맵 (M/B, E/I, C/N, P/G)
      */
     public Map<String, Double> calculateHbtiPercentages(List<Integer> answers) {
+        System.out.println("calculateHbtiPercentages 진입");
         if (answers.size() != 12) {
             throw new IllegalArgumentException("12개의 답변이 필요합니다.");
         }
 
+        // 각 성향별 점수 계산
         List<Integer> mScores = answers.subList(0, 3);
         List<Integer> eScores = answers.subList(3, 6);
         List<Integer> cScores = answers.subList(6, 9);
         List<Integer> pScores = answers.subList(9, 12);
 
-        double mPercent = calculateAverage(mScores);
-        double ePercent = calculateAverage(eScores);
-        double cPercent = calculateAverage(cScores);
-        double pPercent = calculateAverage(pScores);
+        double mPercent = roundToOneDecimalPlace(calculateAverage(mScores));
+        double ePercent = roundToOneDecimalPlace(calculateAverage(eScores));
+        double cPercent = roundToOneDecimalPlace(calculateAverage(cScores));
+        double pPercent = roundToOneDecimalPlace(calculateAverage(pScores));
 
-        double bPercent = 100 - mPercent;
-        double iPercent = 100 - ePercent;
-        double nPercent = 100 - cPercent;
-        double gPercent = 100 - pPercent;
+        double bPercent = roundToOneDecimalPlace(100 - mPercent);
+        double iPercent = roundToOneDecimalPlace(100 - ePercent);
+        double nPercent = roundToOneDecimalPlace(100 - cPercent);
+        double gPercent = roundToOneDecimalPlace(100 - pPercent);
 
+        // 보정 로직: 합계 조정
+        bPercent = adjustComplementaryValue(mPercent, bPercent);
+        iPercent = adjustComplementaryValue(ePercent, iPercent);
+        nPercent = adjustComplementaryValue(cPercent, nPercent);
+        gPercent = adjustComplementaryValue(pPercent, gPercent);
+
+        // 결과 저장
         Map<String, Double> percentages = new HashMap<>();
         percentages.put("M", mPercent);
         percentages.put("B", bPercent);
@@ -70,8 +82,10 @@ public class HbtiService {
         percentages.put("P", pPercent);
         percentages.put("G", gPercent);
 
+        System.out.println("calculateHbtiPercentages 끝");
         return percentages;
     }
+
 
     /**
      * 퍼센트를 기반으로 HBTI 결과 결정
@@ -84,6 +98,7 @@ public class HbtiService {
         hbti.append(percentages.get("E") >= percentages.get("I") ? "E" : "I");
         hbti.append(percentages.get("C") >= percentages.get("N") ? "C" : "N");
         hbti.append(percentages.get("P") >= percentages.get("G") ? "P" : "G");
+        System.out.println("determineHbti 끝");
         return hbti.toString();
     }
 
@@ -92,7 +107,10 @@ public class HbtiService {
      * @param userId 사용자 ID
      * @param answers 사용자가 응답한 답변 리스트
      */
+    @Transactional
     public void processHbti(Long userId, List<Integer> answers) {
+        System.out.println("서비스 진입");
+
         // 퍼센트 계산
         Map<String, Double> percentages = calculateHbtiPercentages(answers);
 
@@ -103,29 +121,35 @@ public class HbtiService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // 기존 HBTI 데이터 확인
-        HBTI existingHbti = hbtiRepository.findById(userId).orElse(null);
+        System.out.println(userId + "유저 아이디");
+        System.out.println(user.toString());
 
-        if (existingHbti != null) {
-            // 기존 데이터를 덮어쓰기
-            existingHbti.setMbScore(percentages.get("M"));
-            existingHbti.setEiScore(percentages.get("E"));
-            existingHbti.setCnScore(percentages.get("C"));
-            existingHbti.setPgScore(percentages.get("P"));
-            existingHbti.setHbti(hbti);
-            hbtiRepository.save(existingHbti); // 업데이트
-        } else {
-            // 새 데이터 생성
-            HBTI hbtiEntity = new HBTI();
-            hbtiEntity.setUserId(userId);
-            hbtiEntity.setUser(user);
-            hbtiEntity.setMbScore(percentages.get("M"));
-            hbtiEntity.setEiScore(percentages.get("E"));
-            hbtiEntity.setCnScore(percentages.get("C"));
-            hbtiEntity.setPgScore(percentages.get("P"));
-            hbtiEntity.setHbti(hbti);
-            hbtiRepository.save(hbtiEntity); // 신규 저장
-        }
+        // 소수점 1자리로 반올림
+        double roundedMb = roundToOneDecimalPlace(percentages.get("M"));
+        double roundedEi = roundToOneDecimalPlace(percentages.get("E"));
+        double roundedCn = roundToOneDecimalPlace(percentages.get("C"));
+        double roundedPg = roundToOneDecimalPlace(percentages.get("P"));
+
+        // HBTI 엔티티 생성 또는 업데이트
+        HBTI hbtiEntity = hbtiRepository.findById(userId).orElse(new HBTI());
+        hbtiEntity.setId(userId); // primary key 설정
+        hbtiEntity.setUser(user);
+        hbtiEntity.setMbScore(roundedMb); // 반올림된 값 저장
+        hbtiEntity.setEiScore(roundedEi);
+        hbtiEntity.setCnScore(roundedCn);
+        hbtiEntity.setPgScore(roundedPg);
+        hbtiEntity.setHbti(hbti);
+
+        System.out.println("dkdkdk" + hbtiEntity.toString());
+        // 저장
+        hbtiRepository.save(hbtiEntity);
+    }
+
+    // 소수점 1자리로 반올림
+    private double roundToOneDecimalPlace(double value) {
+        return BigDecimal.valueOf(value)
+                .setScale(1, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 
     /**
@@ -271,6 +295,15 @@ public class HbtiService {
         return (int) Math.round(
                 (matchScores.get("M_B") + matchScores.get("E_I") + matchScores.get("C_N") + matchScores.get("P_G")) / 4
         );
+    }
+
+    private double adjustComplementaryValue(double primary, double complementary) {
+        double sum = primary + complementary;
+        if (sum != 100.0) {
+            double adjustment = 100.0 - sum;
+            return roundToOneDecimalPlace(complementary + adjustment);
+        }
+        return complementary;
     }
 } // end class
 

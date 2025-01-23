@@ -68,4 +68,6 @@ public class User extends BaseEntity {
 
     @Column(length = 50)
     private String profileImage;
+
+
 }

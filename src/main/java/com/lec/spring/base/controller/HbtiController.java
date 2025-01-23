@@ -1,9 +1,10 @@
 package com.lec.spring.base.controller;
 
-import com.lec.spring.base.domain.HBTI;
+import com.lec.spring.base.DTO.HbtiAnswer;
 import com.lec.spring.base.service.HbtiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -30,24 +31,19 @@ public class HbtiController {
         }
     }
 
-
     /**
      * 사용자 ID와 답변을 기반으로 HBTI 결과를 저장
      */
     @PostMapping("/save")
-    public ResponseEntity<String> saveHbtiResult(
-            @RequestParam Long userId,
-            @RequestBody List<Integer> answers
-    ) {
+    @Transactional
+    public ResponseEntity<String> saveHbtiResult(@RequestBody HbtiAnswer request) {
         try {
-            hbtiService.processHbti(userId, answers);
+            hbtiService.processHbti(request.getUserId(), request.getAnswers());
             return ResponseEntity.ok("HBTI 결과가 성공적으로 저장되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 
     /**
      * 특정 HBTI 유형의 데이터를 조회
@@ -70,8 +66,22 @@ public class HbtiController {
     @GetMapping("/{userId}/result")
     public ResponseEntity<Map<String, Object>> getHbtiResultWithDetailsAndMatches(@PathVariable Long userId) {
         try {
-            // 서비스 호출: 추천 정보를 포함한 결과 반환
             Map<String, Object> result = hbtiService.getHbtiResultWithDetailsAndMatches(userId);
+            return ResponseEntity.ok(result);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
+        }
+    }
+
+    /**
+     * 특정 사용자 ID로 저장된 HBTI 결과를 조회
+     */
+    @GetMapping("/{userId}")
+    public ResponseEntity<Map<String, Object>> getHbtiResult(@PathVariable Long userId) {
+        try {
+            Map<String, Object> result = hbtiService.getHbtiResultWithDetails(userId);
             return ResponseEntity.ok(result);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
