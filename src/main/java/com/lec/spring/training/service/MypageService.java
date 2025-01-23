@@ -1,6 +1,6 @@
-package com.lec.spring.service;
+package com.lec.spring.training.service;
 
-import com.lec.spring.repository.MypageRepository;
+import com.lec.spring.training.repository.MypageRepository;
 import com.lec.spring.training.domain.Reservation;
 import com.lec.spring.training.domain.ReservationStatus;
 
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

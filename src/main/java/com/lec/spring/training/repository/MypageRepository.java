@@ -1,4 +1,4 @@
-package com.lec.spring.repository;
+package com.lec.spring.training.repository;
 
 import com.lec.spring.training.domain.Reservation;
 import com.lec.spring.training.domain.ReservationStatus;
