@@ -16,8 +16,9 @@ import java.util.Map;
 public class HbtiController {
 
     private final HbtiService hbtiService;
+
     /**
-     * 전체 HBTI 데이터를 반환
+     * 전체 HBTI JSON 데이터를 반환
      */
     @GetMapping("/data")
     public ResponseEntity<Map<String, Object>> getAllHbtiData() {
@@ -25,28 +26,13 @@ public class HbtiController {
             Map<String, Object> hbtiData = hbtiService.getAllHbtiData();
             return ResponseEntity.ok(hbtiData);
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body(Map.of("error", "Failed to load HBTI data."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
         }
     }
 
 
     /**
-     * 클라이언트로부터 답변을 받아 퍼센트 계산 결과 반환
-     */
-    @PostMapping("/calculate")
-    public ResponseEntity<Object> calculatePercentages(@RequestBody List<Integer> answers) {
-        try {
-            Map<String, Double> percentages = hbtiService.calculateHbtiPercentages(answers);
-            return ResponseEntity.ok(percentages);
-        } catch (IllegalArgumentException e) {
-            // 오류 메시지를 Object로 감싸서 반환
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-
-    /**
-     * 클라이언트로부터 답변을 받아 HBTI 결과 저장
+     * 사용자 ID와 답변을 기반으로 HBTI 결과를 저장
      */
     @PostMapping("/save")
     public ResponseEntity<String> saveHbtiResult(
@@ -55,40 +41,16 @@ public class HbtiController {
     ) {
         try {
             hbtiService.processHbti(userId, answers);
-            return ResponseEntity.ok("HBTI 결과 저장 성공");
+            return ResponseEntity.ok("HBTI 결과가 성공적으로 저장되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    /**
-     * 특정 사용자의 HBTI 결과 조회
-     */
-    @GetMapping("/{userId}")
-    public ResponseEntity<HBTI> getHbtiByUserId(@PathVariable Long userId) {
-        try {
-            HBTI hbti = hbtiService.getHbtiByUserId(userId);
-            return ResponseEntity.ok(hbti);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+
 
     /**
-     * 특정 사용자의 HBTI에 해당하는 상세 정보 반환
-     */
-    @GetMapping("/{userId}/details")
-    public ResponseEntity<Map<String, Object>> getHbtiDetails(@PathVariable Long userId) {
-        try {
-            Map<String, Object> hbtiDetails = hbtiService.getHbtiDetails(userId);
-            return ResponseEntity.ok(hbtiDetails);
-        } catch (IllegalArgumentException | IOException e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-    /**
-     * 특정 HBTI 유형의 데이터를 반환
+     * 특정 HBTI 유형의 데이터를 조회
      */
     @GetMapping("/type/{hbtiType}")
     public ResponseEntity<Map<String, Object>> getHbtiDataByType(@PathVariable String hbtiType) {
@@ -96,23 +58,25 @@ public class HbtiController {
             Map<String, Object> hbtiData = hbtiService.getHbtiDataByType(hbtiType);
             return ResponseEntity.ok(hbtiData);
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body(Map.of("error", "Failed to load HBTI data."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
+    /**
+     * 특정 사용자 ID로 HBTI 결과와 세부 정보를 결합하여 반환
+     */
     @GetMapping("/{userId}/result")
-    public ResponseEntity<Map<String, Object>> getHbtiResultWithDetails(@PathVariable Long userId) {
+    public ResponseEntity<Map<String, Object>> getHbtiResultWithDetailsAndMatches(@PathVariable Long userId) {
         try {
-            // 서비스 호출
-            Map<String, Object> result = hbtiService.getHbtiResultWithDetails(userId);
+            // 서비스 호출: 추천 정보를 포함한 결과 반환
+            Map<String, Object> result = hbtiService.getHbtiResultWithDetailsAndMatches(userId);
             return ResponseEntity.ok(result);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body(Map.of("error", "JSON 데이터를 로드하는 중 문제가 발생했습니다."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
         }
     }
-
-}// end class
+}
