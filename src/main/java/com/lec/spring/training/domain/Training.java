@@ -4,11 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@DynamicUpdate
+@DynamicInsert
 @Entity(name = "Training")
 public class Training {
     @Id
@@ -29,4 +34,12 @@ public class Training {
 
     @Column
     private Integer times;
+
+    @Column
+    @ColumnDefault("0")
+    private int total_stamps;
+
+    @Column
+    @ColumnDefault("0")
+    private int coupons;
 }
