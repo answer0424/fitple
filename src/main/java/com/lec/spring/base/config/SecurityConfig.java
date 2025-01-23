@@ -19,8 +19,8 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${cors.allowed-origins}")
-    private List<String> corsAllowedOrigins;
+//    @Value("${cors.allowed-origins}")
+//    private List<String> corsAllowedOrigins;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
