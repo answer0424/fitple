@@ -29,4 +29,6 @@ public class Training {
 
     @Column
     private Integer times;
-}
+
+}// end Training
+
