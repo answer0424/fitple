@@ -1,5 +1,6 @@
 package com.lec.spring.training.domain;
 
+import com.lec.spring._common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ import java.util.Date;
 @DynamicUpdate
 @DynamicInsert
 @Entity(name = "Review")
-public class Review {
+public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,9 +32,5 @@ public class Review {
 
     @Column
     private String content;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
 }
 
