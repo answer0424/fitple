@@ -18,7 +18,7 @@ import java.util.Date;
 public class Message extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long messageId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
