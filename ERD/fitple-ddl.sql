@@ -66,10 +66,10 @@ CREATE TABLE TrainerProfile (
 
 -- 2-3. 트레이너 자격증 사진
 CREATE TABLE CertificationsImage (
-                                id BIGINT NOT NULL COMMENT '자격증 ID',
-                                TrainerProfile_id BIGINT NOT NULL,
-                                credentials VARCHAR(50) NOT NULL,
-                                PRIMARY KEY (id, TrainerProfile_id)
+                                     id BIGINT NOT NULL COMMENT '자격증 ID',
+                                     TrainerProfile_id BIGINT NOT NULL,
+                                     credentials VARCHAR(50) NOT NULL,
+                                     PRIMARY KEY (id, TrainerProfile_id)
 );
 
 -- 3. 예약 및 리뷰

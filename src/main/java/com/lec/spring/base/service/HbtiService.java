@@ -140,7 +140,7 @@ public class HbtiService {
         hbtiEntity.setPgScore(roundedPg);
         hbtiEntity.setHbti(hbti);
 
-        System.out.println("dkdkdk" + hbtiEntity.toString());
+        System.out.println("processHbti () 받아온 값 : " + hbtiEntity.toString());
         // 저장
         hbtiRepository.save(hbtiEntity);
     }
