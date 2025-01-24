@@ -686,6 +686,226 @@ VALUES (1, 1, '2025-01-01 09:00:00', '운동완료', '09:00:00', 45),
        (99, 9, '2025-04-09 14:30:00', '운동전', '14:30:00', 35),
        (100, 10, '2025-04-10 18:15:00', '운동취소', '18:15:00', 25);
 
+UPDATE User
+SET address = '서울특별시 종로구 수표로26길 12'
+WHERE username IN ('Trainer11', 'Trainer69');
+
+UPDATE User
+SET address = '서울시 종로구 창신동 328-18'
+WHERE username = 'Trainer59';
+
+UPDATE User
+SET address = '서울시 종로구 종로3가 119번지 지하동 1층 동영타워'
+WHERE username = 'Trainer37';
+
+UPDATE User
+SET address = '서울시 중구 명동 청계천로 24 케이스퀘어 B1'
+WHERE username IN ('Trainer60', 'Trainer70');
+
+UPDATE User
+SET address = '서울시 중구 장충단로 253 헬로우APM 8층'
+WHERE username = 'Trainer36';
+
+UPDATE User
+SET address = '서울시 중구 다산로 240'
+WHERE username = 'Trainer12';
+
+UPDATE User
+SET address = '서울시 용산구 한강대로 273 B1'
+WHERE username = 'Trainer34';
+
+UPDATE User
+SET address = '서울시 용산구 후암로 107'
+WHERE username = 'Trainer54';
+
+UPDATE User
+SET address = '서울특별시 용산구 216-96 3층'
+WHERE username = 'Trainer13';
+
+UPDATE User
+SET address = '서울시 성동구 독서당로 40길 39 B1층'
+WHERE username = 'Trainer35';
+
+UPDATE User
+SET address = '서울시 성동구 성수1가제2동 13-436'
+WHERE username = 'Trainer55';
+
+UPDATE User
+SET address = '서울시 광진구 구의동 구의강변로 106'
+WHERE username = 'Trainer65';
+
+UPDATE User
+SET address = '서울시 광진구 자양제4동 74-14'
+WHERE username = 'Trainer14';
+
+UPDATE User
+SET address = '서울시 동대문구 청량리동 710번지'
+WHERE username IN ('Trainer23', 'Trainer43', 'Trainer73', 'Trainer78');
+
+UPDATE User
+SET address = '서울시 동대문구 이문동 305-151'
+WHERE username = 'Trainer15';
+
+UPDATE User
+SET address = '서울시 중랑구 망구로 60길 37 효성 써너스빌 친환경 3층'
+WHERE username IN ('Trainer28', 'Trainer48', 'Trainer83');
+
+UPDATE User
+SET address = '서울시 중랑구 망구로 30길 2층'
+WHERE username = 'Trainer16';
+
+UPDATE User
+SET address = '서울특별시 성북구 안안동5가 101-27'
+WHERE username IN ('Trainer24', 'Trainer44', 'Trainer74', 'Trainer79');
+
+UPDATE User
+SET address = '서울 성북구 고려대로 22길 5 닥터스트렝스'
+WHERE username = 'Trainer17';
+
+UPDATE User
+SET address = '서울시 강북구 번동 418-1 12층'
+WHERE username IN ('Trainer25', 'Trainer45', 'Trainer75', 'Trainer80');
+
+UPDATE User
+SET address = '서울시 강북구 수유1동 70-4'
+WHERE username = 'Trainer18';
+
+UPDATE User
+SET address = '서울특별시 도봉구 방학로 3길 6 지하 1층'
+WHERE username IN ('Trainer26', 'Trainer46', 'Trainer81');
+
+UPDATE User
+SET address = '서울특별시 도봉구 워라밸 피트니스 B1'
+WHERE username = 'Trainer19';
+
+UPDATE User
+SET address = '서울시 노원구 상계6. 7동 372-16'
+WHERE username IN ('Trainer27', 'Trainer47', 'Trainer82');
+
+UPDATE User
+SET address = '서울시 노원구 노원로 34길 72 와이와이헬스'
+WHERE username = 'Trainer20';
+
+UPDATE User
+SET address = '서울특별시 은평구 은평로 179'
+WHERE username IN ('Trainer21', 'Trainer41', 'Trainer71', 'Trainer72', 'Trainer76');
+
+UPDATE User
+SET address = '서울시 은평구 진관3로 32'
+WHERE username = 'Trainer22';
+
+UPDATE User
+SET address = '서울시 서대문구 홍은제 2동'
+WHERE username IN ('Trainer42', 'Trainer77');
+
+UPDATE User
+SET address = '서울특별시 서대문구 연희로 82'
+WHERE username = 'Trainer29';
+
+UPDATE User
+SET address = '서울특별시 마포구 마포대로 109 롯데캐슬 프리미엄지던스튜디오엠롯데캐슬점'
+WHERE username IN ('Trainer57', 'Trainer67');
+
+UPDATE User
+SET address = '서울시 마포구 공덕동 167-2'
+WHERE username = 'Trainer30';
+
+UPDATE User
+SET address = '서울시 양천구 목동중앙북로 74'
+WHERE username IN ('Trainer31', 'Trainer51');
+
+UPDATE User
+SET address = '서울시 양천구 신정43동 946-1'
+WHERE username = 'Trainer32';
+
+UPDATE User
+SET address = '서울시 강서구 수남빌딩 4층'
+WHERE username IN ('Trainer33', 'Trainer53');
+
+UPDATE User
+SET address = '서울시 강서구 화곡동 우현로 37'
+WHERE username = 'Trainer38';
+
+UPDATE User
+SET address = '서울 구로구 경인로 319 지하 비스트짐휘트니스 1층'
+WHERE username IN ('Trainer32', 'Trainer52');
+
+UPDATE User
+SET address = '서울특별시 구로구 구로동 612 10 6 7층'
+WHERE username = 'Trainer39';
+
+UPDATE User
+SET address = '서울특별시 금천구 시흥동 8-17'
+WHERE username IN ('Trainer30', 'Trainer50', 'Trainer85');
+
+UPDATE User
+SET address = '서울특별시 금천구 독산동 291-5'
+WHERE username = 'Trainer40';
+
+UPDATE User
+SET address = '서울특별시 금천구 서부샛길 606'
+WHERE username = 'Trainer84';
+
+UPDATE User
+SET address = '서울특별시 영등포구 여의동 53 우정 빌딩 3 층'
+WHERE username IN ('Trainer58', 'Trainer68');
+
+UPDATE User
+SET address = '서울특별시 영등포구 여의대방로69길 7 충무빌딩 3층'
+WHERE username = 'Trainer42';
+
+UPDATE User
+SET address = '서울특별시 영등포구 영등포동 624-20'
+WHERE username = 'Trainer43';
+
+UPDATE User
+SET address = '서울특별시 동작구 여의대방로16길 53'
+WHERE username IN ('Trainer56', 'Trainer66');
+
+UPDATE User
+SET address = '서울특별시 동작구 동작대로29길 36'
+WHERE username = 'Trainer45';
+
+UPDATE User
+SET address = '서울특별시 관악구 봉천동 1601-23'
+WHERE username IN ('Trainer29', 'Trainer49', 'Trainer84');
+
+UPDATE User
+SET address = '서울특별시 관악구 남부순환로 1817 Q타워'
+WHERE username = 'Trainer47';
+
+UPDATE User
+SET address = '서울특별시 서초구 871-6 3층'
+WHERE username IN ('Trainer38', 'Trainer62');
+
+UPDATE User
+SET address = '서울특별시 서초구 서초동 1337-20'
+WHERE username = 'Trainer48';
+
+UPDATE User
+SET address = '서울특별시 강남구 미진프라자 지하 3층'
+WHERE username IN ('Trainer39', 'Trainer61');
+
+UPDATE User
+SET address = '서울 강남구 강남대로 382 B2 KR 서울특별시'
+WHERE username = 'Trainer51';
+
+UPDATE User
+SET address = '서울특별시 송파구 송파동 103-2'
+WHERE username IN ('Trainer40', 'Trainer63');
+
+UPDATE User
+SET address = '서울특별시 송파구 Samhacksaro 지하 30 1층'
+WHERE username = 'Trainer53';
+
+UPDATE User
+SET address = '서울특별시 강동구 성내동 293-12 B1'
+WHERE username IN ('Trainer64');
+
+UPDATE User
+SET address = '서울특별시 강동구 천호대로 1006'
+WHERE username = 'Trainer65';
+
 # certification
 INSERT INTO certification (id, trainer_profile_id, credentials)
 VALUES (1, 1, 'img/1.jpg'),
