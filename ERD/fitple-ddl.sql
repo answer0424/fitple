@@ -3,7 +3,7 @@ SET SESSION FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS Gym, User, Training, Reservation, Review,
     Chat, UserChat, Message, AI_PROMPT,
-    TrainerProfile, certifications, HBTI;
+    TrainerProfile, certifications, HBTI, certification, CertificationsImage, trainer_profile, user_chat;
 
 -- 1. 핵심 테이블
 
@@ -59,7 +59,7 @@ CREATE TABLE TrainerProfile (
                                 skills JSON NOT NULL COMMENT '스킬 목록',
                                 content LONGTEXT NOT NULL,
                                 career DATE NOT NULL,
-                                grant ENUM('승인', '대기', '거절') NOT NULL DEFAULT '대기',
+                                `grant` ENUM('승인', '대기', '거절') NOT NULL DEFAULT '대기',
                                 PRIMARY KEY (id),
                                 UNIQUE INDEX id_UNIQUE (id)
 );

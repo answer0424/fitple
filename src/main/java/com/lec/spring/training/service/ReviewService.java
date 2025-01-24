@@ -5,6 +5,7 @@ import com.lec.spring.training.DTO.ReviewResponseDTO;
 import com.lec.spring.training.domain.Review;
 import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.ReviewRepository;
+import com.lec.spring.training.repository.TrainingRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,13 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final TrainingRepository trainingRepository;
 
+    public ReviewService(ReviewRepository reviewRepository, TrainingRepository trainingRepository) {
+        this.reviewRepository = reviewRepository;
+        this.trainingRepository = trainingRepository;
+    }
+
     public List<ReviewResponseDTO> getReviews(Long trainingId) {
-        return reviewRepository.findByTrainingIdOrderByCreatedAtDesc(trainingId)
+        return reviewRepository.findReviews(trainingId)
                 .stream()
                 .map(review -> {
                     Training training = review.getTraining();
@@ -41,14 +47,16 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+
     public Review createReview(Long trainingId, Review review) {
         Training training = trainingRepository.findById(trainingId)
-                .orElseThrow(() -> new EntityNotFoundException("Training not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Training이 없습니다."));
 
         review.setTraining(training);
         review.setCreatedAt(new Date());
         return reviewRepository.save(review);
     }
+
 
     public void deleteReview(Long reviewId) {
         reviewRepository.deleteById(reviewId);
