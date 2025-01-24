@@ -53,7 +53,7 @@ public class ReviewService {
                 .orElseThrow(() -> new EntityNotFoundException("Training이 없습니다."));
 
         review.setTraining(training);
-        review.setCreatedAt(new Date());
+//        review.setCreatedAt(new Date());
         return reviewRepository.save(review);
     }
 

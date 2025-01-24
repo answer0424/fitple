@@ -34,4 +34,12 @@ public class Training {
 
     @Column
     private Integer times;
+
+    @Column
+    @ColumnDefault("0")
+    private int total_stamps;
+
+    @Column
+    @ColumnDefault("0")
+    private int coupons;
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class HBTI {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
