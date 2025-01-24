@@ -22,6 +22,7 @@ public class PrincipalDetailService implements UserDetailsService {
 
         // DB 조회
         User user = userService.findByUsername(username);
+        System.out.println("Loaded User: " + user);
 
         if(user != null) {
             // UserDetails 에 담아서 return 하면 AuthenticationManager 가 검증함

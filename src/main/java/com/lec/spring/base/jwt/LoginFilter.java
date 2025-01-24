@@ -58,6 +58,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         // Authorization 헤더에 JWT 를 담아서 보내기
         response.addHeader("Authorization", "Bearer " + token);
+
+        String jsonResponse = String.format(
+                "{\"authorities\":[{\"authority\":\"ROLE_TRAINER\"}],\"details\":null,\"authenticated\":true," +
+                        "\"principal\":{\"user\":{\"createdAt\":null,\"id\":%d,\"username\":\"%s\",\"email\":\"%s\",\"birth\":\"%s\",\"nickname\":\"%s\",\"profileImage\":\"%s\"}," +
+                        "\"enabled\":true,\"password\":\"%s\",\"username\":\"%s\",\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true," +
+                        "\"authorities\":[{\"authority\":\"ROLE_TRAINER\"}]},\"credentials\":null,\"name\":\"%s\"}",
+                user.getId(), user.getUsername(), user.getEmail(), user.getBirth(), user.getNickname(), user.getProfileImage(),
+                user.getPassword(), user.getUsername(), user.getUsername()
+        );
+
+        System.out.println("jsonResponse: " + jsonResponse);
+
+        response.getWriter().write(jsonResponse);
     }
 
 
