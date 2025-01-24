@@ -230,7 +230,22 @@ VALUES ('Trainer11', 'password11', 'trainer11@example.com', 'TrainerNick11', 'Tr
        ('Trainer74', 'password74', 'trainer74@example.com', 'TrainerNick74', '서울특별시 성북구 Trainer Address 74',
         '1993-06-14', '/img/profile74.png', 'ROLE_TRAINER', NOW()),
        ('Trainer75', 'password75', 'trainer75@example.com', 'TrainerNick75', '서울특별시 강북구 Trainer Address 75',
-        '1994-07-15', '/img/profile75.png', 'ROLE_TRAINER', NOW());
+        '1994-07-15', '/img/profile75.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer76', 'password76', 'trainer76@example.com', 'TrainerNick76', '서울특별시 은평구 Trainer Address 76', '1995-01-01', '/img/profile76.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer77', 'password77', 'trainer77@example.com', 'TrainerNick77', '서울특별시 서대문구 Trainer Address 77', '1996-02-02', '/img/profile77.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer78', 'password78', 'trainer78@example.com', 'TrainerNick78', '서울특별시 동대문구 Trainer Address 78', '1997-03-03', '/img/profile78.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer79', 'password79', 'trainer79@example.com', 'TrainerNick79', '서울특별시 성북구 Trainer Address 79', '1998-04-04', '/img/profile79.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer80', 'password80', 'trainer80@example.com', 'TrainerNick80', '서울특별시 강북구 Trainer Address 80', '1999-05-05', '/img/profile80.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer81', 'password81', 'trainer81@example.com', 'TrainerNick81', '서울특별시 도봉구 Trainer Address 81', '2000-06-06', '/img/profile81.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer82', 'password82', 'trainer82@example.com', 'TrainerNick82', '서울특별시 노원구 Trainer Address 82', '2001-07-07', '/img/profile82.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer83', 'password83', 'trainer83@example.com', 'TrainerNick83', '서울특별시 중랑구 Trainer Address 83', '2002-08-08', '/img/profile83.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer84', 'password84', 'trainer84@example.com', 'TrainerNick84', '서울특별시 관악구 Trainer Address 84', '2003-09-09', '/img/profile84.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer85', 'password85', 'trainer85@example.com', 'TrainerNick85', '서울특별시 금천구 Trainer Address 85', '2004-10-10', '/img/profile85.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer86', 'password86', 'trainer86@example.com', 'TrainerNick86', '서울특별시 양천구 Trainer Address 86', '2005-11-11', '/img/profile86.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer87', 'password87', 'trainer87@example.com', 'TrainerNick87', '서울특별시 구로구 Trainer Address 87', '2006-12-12', '/img/profile87.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer88', 'password88', 'trainer88@example.com', 'TrainerNick88', '서울특별시 강서구 Trainer Address 88', '2007-01-13', '/img/profile88.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer89', 'password89', 'trainer89@example.com', 'TrainerNick89', '서울특별시 용산구 Trainer Address 89', '2008-02-14', '/img/profile89.png', 'ROLE_TRAINER', NOW()),
+       ('Trainer90', 'password90', 'trainer90@example.com', 'TrainerNick90', '서울특별시 성동구 Trainer Address 90', '2009-03-15', '/img/profile90.png', 'ROLE_TRAINER', NOW());
 ;
 INSERT INTO TrainerProfile (id, trainer_id, per_price, skills, content, career, is_access)
 VALUES (1, 51, 50000, '["Fitness", "Yoga", "Pilates"]', 'Experienced trainer with expertise in fitness.', '2010-05-01',
@@ -312,8 +327,23 @@ VALUES (1, 51, 50000, '["Fitness", "Yoga", "Pilates"]', 'Experienced trainer wit
        (71, 121, 80000, '["Strength Training", "HIIT"]', 'Specialist in HIIT and strength training.', '2020-05-11', '승인'),
        (72, 122, 60000, '["Weight Loss", "Nutrition"]', 'Nutrition-focused weight loss trainer.', '2021-06-12', '거절'),
        (73, 123, 65000, '["Functional Training", "Rehabilitation"]', 'Rehabilitation and functional training.', '2022-07-13', '대기'),
-       (74, 124, 75000, '["Flexibility", "Pilates"]', 'Pilates instructor with flexibility focus.', '2023-08-14', '승인'),
-       (75, 125, 70000, '["Endurance Training", "Cardio"]', 'Endurance and cardio specialist.', '2024-09-15', '승인');
+       (74, 124, 75000, '["Flexibility", "Pilates"]', 'Pilates instructor with flexibility focus.', '2023-08-14', '승인')
+   ,
+       (126, 126, 60000, '["Weightlifting", "Powerlifting"]', 'Expert in weightlifting and powerlifting.', '2015-04-01', '승인'),
+       (127, 127, 55000, '["Yoga", "Meditation"]', 'Yoga and meditation trainer.', '2016-05-02', '대기'),
+       (128, 128, 75000, '["HIIT", "CrossFit"]', 'Specialized in HIIT and CrossFit.', '2017-06-03', '승인'),
+       (129, 129, 80000, '["Pilates", "Core Strength"]', 'Expert in pilates and core strength training.', '2018-07-04', '승인'),
+       (130, 130, 70000, '["Functional Training", "Rehabilitation"]', 'Rehabilitation and functional training specialist.', '2019-08-05', '거절'),
+       (131, 131, 65000, '["Cardio", "Endurance Training"]', 'Helps clients improve cardio and endurance.', '2020-09-06', '대기'),
+       (132, 132, 55000, '["Bodybuilding", "Nutrition"]', 'Certified bodybuilding and nutrition coach.', '2021-10-07', '승인'),
+       (133, 133, 60000, '["Flexibility", "Posture Correction"]', 'Posture correction and flexibility trainer.', '2022-11-08', '승인'),
+       (134, 134, 75000, '["Self Defense", "Martial Arts"]', 'Martial arts and self-defense specialist.', '2023-12-09', '대기'),
+       (135, 135, 70000, '["Bootcamp", "Fitness"]', 'Conducts bootcamp sessions.', '2024-01-10', '승인'),
+       (136, 136, 80000, '["HIIT", "Strength Training"]', 'Specialist in HIIT and strength training.', '2025-02-11', '승인'),
+       (137, 137, 60000, '["Weight Loss", "Nutrition"]', 'Focused on weight loss and proper nutrition.', '2026-03-12', '거절'),
+       (138, 138, 65000, '["Fitness", "Flexibility"]', 'Improves fitness and flexibility for clients.', '2027-04-13', '대기'),
+       (139, 139, 75000, '["Rehabilitation", "Core Strength"]', 'Specialist in rehabilitation and core training.', '2028-05-14', '승인'),
+       (140, 140, 70000, '["Endurance Training", "Yoga"]', 'Focuses on endurance and yoga practices.', '2029-06-15', '승인');
 
 
 INSERT INTO HBTI (UserId, HBTI, 1col, 2col, 3col, 4col)
