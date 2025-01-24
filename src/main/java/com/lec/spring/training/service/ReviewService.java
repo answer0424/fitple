@@ -1,6 +1,9 @@
 package com.lec.spring.training.service;
 
 import com.lec.spring.base.domain.User;
+import com.lec.spring.base.repository.UserRepository;
+import com.lec.spring.training.DTO.QryResultDTO;
+import com.lec.spring.training.DTO.QryReviewListDTO;
 import com.lec.spring.training.domain.Review;
 import com.lec.spring.training.repository.ReviewRepository;
 import org.springframework.data.domain.Sort;
@@ -19,12 +22,11 @@ public class ReviewService {
         this.userRepository = userRepository;
     }
 
-    // 특정 글의 댓글 목록
-    @Override
-    public QryReviewList list(Long postId) {
-        QryReviewList list = new QryCommentList();
+    // 특정 글의 리뷰 목록
+    public QryReviewListDTO list(Long postId) {
+        QryReviewListDTO list = new QryReviewListDTO();
 
-        List<Review> reviews = reviewRepository.findByPost(postId, Sort.by(Sort.Order.desc("id")));
+        List<Review> reviews = reviewRepository.findByTraining(trainingId, Sort.by(Sort.Order.desc("id")));
 
         list.setCount(reviews.size());  // 댓글의 개수
         list.setList(reviews);
@@ -34,19 +36,18 @@ public class ReviewService {
     }
 
     // 특정 글(postId)에 특정 사용자
-    @Override
-    public QryResult write(Long postId, Long userId, String content) {
+    public QryResultDTO write(Long postId, Long userId, String content) {
         User user = userRepository.findById(userId).orElse(null);
 
         Review review = Review.builder()
-                .user(user)
-                .post(postId)
+                .training(trainingId)
+                .rating(rating)
                 .content(content)
                 .build();
 
         ReviewRepository.save(review);    // INSERT
 
-        QryResult result = QryResult.builder()
+        QryResultDTO result = QryResultDTO.builder()
                 .count(1)
                 .status("OK")
                 .build();
@@ -54,8 +55,7 @@ public class ReviewService {
         return result;
     }
 
-    @Override
-    public QryResult delete(Long id) {
+    public QryResultDTO delete(Long id) {
 
         Review review = reviewRepository.findById(id).orElse(null);
         int count = 0;
@@ -67,7 +67,7 @@ public class ReviewService {
             status = "OK";
         }
 
-        QryResult result = QryResult.builder()
+        QryResultDTO result = QryResultDTO.builder()
                 .count(count)
                 .status(status)
                 .build();
