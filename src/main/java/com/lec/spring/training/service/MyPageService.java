@@ -1,9 +1,11 @@
 package com.lec.spring.training.service;
 
+import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.ReservationRepository;
 import com.lec.spring.training.domain.Reservation;
 import com.lec.spring.training.domain.ReservationStatus;
 
+import com.lec.spring.training.repository.TrainingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ReservationService {
+public class MyPageService {
 
     private final ReservationRepository reservationRepository;
+    private final TrainingRepository trainingRepository;
 
     public Reservation reservationRepository(Reservation reservation) {
         return reservationRepository.save(reservation);
@@ -50,8 +53,33 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    // #트레이닝 생성(?)
+    public Training save(Training training) {
+        if(training.getTimes()== null || training.getTimes() <= 0){
+            training.setTimes(0);
+        }
+        return trainingRepository.save(training);
+    }
 
+    // #트레이닝 횟수 업데이트
+    public Training updateTime(Long id) {
+        return trainingRepository.findById(id).map(training -> {
+            training.setTimes(training.getTimes() + 1);
+            return trainingRepository.save(training);
+        }).orElseThrow(() -> new IllegalArgumentException("pt를 찾을 수 없습니다 : " + id));
+    }
 
+    // #트레이닝 횟수감소 업데이트
+    public Training decrementTimes(Long id) {
+        return trainingRepository.findById(id).map(training -> {
+            if (training.getTimes() > 1) {
+                training.setTimes(training.getTimes() - 1); // 횟수 1 감소
+            } else {
+                throw new IllegalStateException("1보다는 작을 수 없다");
+            }
+            return trainingRepository.save(training);
+        }).orElseThrow(() -> new IllegalArgumentException("pt를 찾을 수 없습니다 : " + id));
+    }
 
 
 
