@@ -1,89 +1,49 @@
 package com.lec.spring.training.service;
 
-import com.lec.spring.training.domain.Training;
-import com.lec.spring.training.repository.ReservationRepository;
+import com.lec.spring.training.DTO.StudentList;
 import com.lec.spring.training.domain.Reservation;
-import com.lec.spring.training.domain.ReservationStatus;
 
-import com.lec.spring.training.repository.TrainingRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-@Transactional
-public class MyPageService {
+public interface MyPageService {
+    //- 이 달의 일정 띄우기
+    List<Reservation> filterSchedulesByMonth(Long userId, Date date);
 
-    private final ReservationRepository reservationRepository;
-    private final TrainingRepository trainingRepository;
+    //- 오늘의 일정 띄우기
+    List<Reservation> filterSchedulesByDay(Long userId, Date date);
 
-    public Reservation reservationRepository(Reservation reservation) {
-        return reservationRepository.save(reservation);
-    }
+    //- 스탬프 상태 변경
+    void updateStampStatus(String status, Long reservationId);
 
-    // # 아이디 별 찾기
-    public Optional<Reservation> findById(Long id) {
-        return reservationRepository.findById(id);
-    }
+    //- 스탬프 띄우기
+    int showStampList();
 
-    // #트레이닝 아이디 조회
-    public List<Reservation> findByTrainingId(Long trainingId) {
-        return reservationRepository.findByTrainingId(trainingId);
-    }
+    //- 쿠폰 사용 기능
+    void useCoupon();
 
-    // # 상태 조회
-    public List<Reservation> findByStatus(ReservationStatus status) {
-        return reservationRepository.findByStatus(status);
-    }
+    //- 트레이너 별 쿠폰 페이지 변경 기능
+    void changeCouponPageByTrainer(Long studentId, Long trainerId);
 
-    // # 예약 삭제
-    public void deleteReservation(Long id) {
-        reservationRepository.deleteById(id);
-    }
+    //- 남은 pt 횟수 불러오기
+    int getPtCount(Long studentId, Long trainerId);
 
-    // # 상태 업데이트
-    public Reservation updateReservationStatus(Long id, ReservationStatus status) {
-        Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("예약을 찾을 수 없습니다. :  " + id));
-        reservation.setStatus(status);
-        return reservationRepository.save(reservation);
-    }
+    //- 내 회원 목록 불러오기
+    List<StudentList> getMyStudentList(Long trainerId);
 
-    // #트레이닝 생성(?)
-    public Training save(Training training) {
-        if(training.getTimes()== null || training.getTimes() <= 0){
-            training.setTimes(0);
-        }
-        return trainingRepository.save(training);
-    }
+    //- 채팅 목록에서 회원 이름 검색
+    StudentList findStudentByChats(Long trainerId, String studentName);
 
-    // #트레이닝 횟수 업데이트
-    public Training updateTime(Long id) {
-        return trainingRepository.findById(id).map(training -> {
-            training.setTimes(training.getTimes() + 1);
-            return trainingRepository.save(training);
-        }).orElseThrow(() -> new IllegalArgumentException("pt를 찾을 수 없습니다 : " + id));
-    }
+    //- 트레이닝에 추가하기
+    void addTraining(Long studentId, Long trainerId);
 
-    // #트레이닝 횟수감소 업데이트
-    public Training decrementTimes(Long id) {
-        return trainingRepository.findById(id).map(training -> {
-            if (training.getTimes() > 1) {
-                training.setTimes(training.getTimes() - 1); // 횟수 1 감소
-            } else {
-                throw new IllegalStateException("1보다는 작을 수 없다");
-            }
-            return trainingRepository.save(training);
-        }).orElseThrow(() -> new IllegalArgumentException("pt를 찾을 수 없습니다 : " + id));
-    }
+    //- 일정 추가 기능
+    void addSchedule();
 
+    //- 회원 일정 불러오기
+    List<Reservation> getSchedulesByMember();
 
+    //- 트레이닝 id 찾기
+    int findTrainingId(Long studentId, Long trainerId);
 
-
-
-
-}// end ReservationService
+} //end MyPageService

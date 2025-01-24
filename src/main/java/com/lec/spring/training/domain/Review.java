@@ -19,7 +19,7 @@ public class Review {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Training_id", nullable = false)
+    @JoinColumn(name = "trainingId", nullable = false)
     private Training training;
 
     @Column(nullable = false)

@@ -45,10 +45,10 @@ public class TrainerDetailServiceImple {
 
 
     //# 전체 트레이너 프로필 조회
-    @Transactional(readOnly = true)
-    public List<TrainerProfile> getAllTrainerProfiles() {
-        return trainerProfileRepository.findAll();
-    }
+//    @Transactional(readOnly = true)
+//    public List<TrainerProfile> getAllTrainerProfiles() {
+//        return trainerProfileRepository.findAll();
+//    }
 
     //#트레이너 id로 조회
     @Transactional(readOnly = true)

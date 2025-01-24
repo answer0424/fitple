@@ -3,6 +3,8 @@ package com.lec.spring.training.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Date;
 
 @Data
@@ -27,7 +29,7 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReservationStatus status;
+    private ReservationStatus status = ReservationStatus.운동전;
 
     @Column(name = "startTime")
     @Temporal(TemporalType.TIME)

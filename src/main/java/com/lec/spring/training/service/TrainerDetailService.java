@@ -9,15 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrainerDetailService {
-    TrainerProfile createTrainerProfile(User trainer, Integer perPrice, String skills, String content,
-                                        Date career, GrantStatus isAccess, List<Certification> certifications);
+    // 트레이너 프로필 생성
+    TrainerProfile createTrainerProfile();
+    
+//    List<TrainerProfile> getAllTrainerProfiles();
 
-    List<TrainerProfile> getAllTrainerProfiles();
+    // 닉네임 기준 프로필 검색
+    TrainerProfile getTrainerProfileByNickname(String nickname);
 
-    Optional<TrainerProfile> getTrainerProfileById(Long id);
-
-    TrainerProfile updateTrainerProfile(Long id, Integer perPrice, String skills, String content,
-                                        Date career, GrantStatus isAccess, List<Certification> certifications);
+    // 트레이너 프로필 수정
+    TrainerProfile updateTrainerProfile();
 
 
 }// end TrainerDetailService
