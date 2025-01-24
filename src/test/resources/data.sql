@@ -327,7 +327,7 @@ VALUES (1, 51, 50000, '["Fitness", "Yoga", "Pilates"]', 'Experienced trainer wit
        (71, 121, 80000, '["Strength Training", "HIIT"]', 'Specialist in HIIT and strength training.', '2020-05-11', '승인'),
        (72, 122, 60000, '["Weight Loss", "Nutrition"]', 'Nutrition-focused weight loss trainer.', '2021-06-12', '거절'),
        (73, 123, 65000, '["Functional Training", "Rehabilitation"]', 'Rehabilitation and functional training.', '2022-07-13', '대기'),
-       (74, 124, 75000, '["Flexibility", "Pilates"]', 'Pilates instructor with flexibility focus.', '2023-08-14', '승인'),
+       (74, 124, 75000, '["Flexibility", "Pilates"]', 'Pilates instructor with flexibility focus.', '2023-08-14', '승인')
    ,
        (126, 126, 60000, '["Weightlifting", "Powerlifting"]', 'Expert in weightlifting and powerlifting.', '2015-04-01', '승인'),
        (127, 127, 55000, '["Yoga", "Meditation"]', 'Yoga and meditation trainer.', '2016-05-02', '대기'),
