@@ -11,7 +11,7 @@ public class HBTI {
     private Long userId;
 
     @OneToOne
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     @Column(nullable = false, length = 4)

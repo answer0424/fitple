@@ -24,7 +24,7 @@ public class User extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "GymId")
+    @JoinColumn(name = "gymId")
     @ToString.Exclude
     @JsonIgnore
     private Gym gym;

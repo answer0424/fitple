@@ -16,7 +16,7 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "TrainingId", nullable = false)
+    @JoinColumn(name = "trainingId", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private Training training;
