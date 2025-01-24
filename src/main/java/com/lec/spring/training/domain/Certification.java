@@ -19,7 +19,7 @@ public class Certification {
 
     @MapsId("trainerProfileId") // 복합 키의 trainerProfileId와 매핑
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TrainerProfile_id", nullable = false)
+    @JoinColumn(name = "TrainerProfileId", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private TrainerProfile trainerProfile;
