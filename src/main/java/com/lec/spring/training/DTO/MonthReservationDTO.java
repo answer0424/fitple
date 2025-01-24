@@ -7,8 +7,5 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentList {
-    private Long userId;
-    private String nickname;
-    private int times;
+public class MonthReservationDTO {
 }
