@@ -1,83 +1,56 @@
 package com.lec.spring.training.service;
 
 import com.lec.spring.base.domain.User;
-import com.lec.spring.base.repository.UserRepository;
-import com.lec.spring.training.DTO.QryResultDTO;
-import com.lec.spring.training.DTO.QryReviewListDTO;
+import com.lec.spring.training.DTO.ReviewResponseDTO;
 import com.lec.spring.training.domain.Review;
+import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.ReviewRepository;
-import org.springframework.data.domain.Sort;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ReviewService {
-
     private final ReviewRepository reviewRepository;
-    private final UserRepository userRepository;
+    private final TrainingRepository trainingRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository) {
-        this.reviewRepository = reviewRepository;
-        this.userRepository = userRepository;
+    public List<ReviewResponseDTO> getReviews(Long trainingId) {
+        return reviewRepository.findByTrainingIdOrderByCreatedAtDesc(trainingId)
+                .stream()
+                .map(review -> {
+                    Training training = review.getTraining();
+                    User user = training.getUser();
+                    User trainer = training.getTrainer();
+
+                    return ReviewResponseDTO.builder()
+                            .id(review.getId())
+                            .trainingId(training.getId())
+                            .username(user.getUsername())
+                            .trainerName(trainer.getUsername())
+                            .userProfileImage(user.getProfileImage())
+                            .trainerProfileImage(trainer.getProfileImage())
+                            .rating(review.getRating())
+                            .content(review.getContent())
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 
-    // 특정 글의 리뷰 목록
-    public QryReviewListDTO list(Long postId) {
-        QryReviewListDTO list = new QryReviewListDTO();
+    public Review createReview(Long trainingId, Review review) {
+        Training training = trainingRepository.findById(trainingId)
+                .orElseThrow(() -> new EntityNotFoundException("Training not found"));
 
-        List<Review> reviews = reviewRepository.findByTraining(trainingId, Sort.by(Sort.Order.desc("id")));
-
-        list.setCount(reviews.size());  // 댓글의 개수
-        list.setList(reviews);
-        list.setStatus("OK");
-
-        return list;
+        review.setTraining(training);
+        review.setCreatedAt(new Date());
+        return reviewRepository.save(review);
     }
 
-    // 특정 글(postId)에 특정 사용자
-    public QryResultDTO write(Long postId, Long userId, String content) {
-        User user = userRepository.findById(userId).orElse(null);
-
-        Review review = Review.builder()
-                .training(trainingId)
-                .rating(rating)
-                .content(content)
-                .build();
-
-        ReviewRepository.save(review);    // INSERT
-
-        QryResultDTO result = QryResultDTO.builder()
-                .count(1)
-                .status("OK")
-                .build();
-
-        return result;
-    }
-
-    public QryResultDTO delete(Long id) {
-
-        Review review = reviewRepository.findById(id).orElse(null);
-        int count = 0;
-        String status = "FAIL";
-
-        if (review != null) {
-            reviewRepository.delete(review);
-            count = 1;
-            status = "OK";
-        }
-
-        QryResultDTO result = QryResultDTO.builder()
-                .count(count)
-                .status(status)
-                .build();
-
-        return result;
+    public void deleteReview(Long reviewId) {
+        reviewRepository.deleteById(reviewId);
     }
 }
-
-
-
-
-
-
