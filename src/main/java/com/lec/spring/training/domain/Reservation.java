@@ -27,7 +27,7 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReservationStatus status;
+    private ReservationStatus status = ReservationStatus.운동전;;
 
     @Column(name = "startTime")
     @Temporal(TemporalType.TIME)
