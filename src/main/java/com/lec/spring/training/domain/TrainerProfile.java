@@ -44,6 +44,10 @@ public class TrainerProfile {
     @Builder.Default
     private List<Certification> certificationList = new ArrayList<>();
 
+
+
+    
+
     public void addCertificationList(Certification... certificationList) {
         Collections.addAll(this.certificationList, certificationList);
     }

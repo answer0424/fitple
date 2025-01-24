@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface TrainerDetailService {
     // 트레이너 프로필 생성
     boolean createTrainerProfile(TrainerProfile trainerProfile, List<MultipartFile> files);
-    
+
 //    List<TrainerProfile> getAllTrainerProfiles();
 
     // 닉네임 기준 프로필 검색/상세 페이지 완성 시 수정
