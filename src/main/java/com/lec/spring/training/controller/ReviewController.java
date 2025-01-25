@@ -18,9 +18,9 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/training/{trainingId}")
-    public ResponseEntity<List<ReviewResponseDTO>> getReviews(@PathVariable Long trainingId) {
-        List<ReviewResponseDTO> reviews = reviewService.getReviews(trainingId);
+    @GetMapping("/training/{trainerId}")
+    public ResponseEntity<List<ReviewResponseDTO>> getTrainerReviews(@PathVariable Long trainerId) {
+        List<ReviewResponseDTO> reviews = reviewService.getReviewsByTrainerId(trainerId);
         return reviews.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(reviews);

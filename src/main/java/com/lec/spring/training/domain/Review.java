@@ -24,7 +24,7 @@ public class Review extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "trainingId", nullable = false)
+    @JoinColumn(name = "trainingId", nullable = false, unique = true)
     private Training training;
 
     @Column(nullable = false)
