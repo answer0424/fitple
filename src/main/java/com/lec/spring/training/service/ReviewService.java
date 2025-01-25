@@ -25,8 +25,8 @@ public class ReviewService {
         this.trainingRepository = trainingRepository;
     }
 
-    public List<ReviewResponseDTO> getReviews(Long trainingId) {
-        return reviewRepository.findReviews(trainingId)
+    public List<ReviewResponseDTO> getReviewsByTrainerId(Long trainerId) {
+        return reviewRepository.findReviewsByTrainerId(trainerId)
                 .stream()
                 .map(review -> {
                     Training training = review.getTraining();
