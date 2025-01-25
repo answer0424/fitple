@@ -2,13 +2,12 @@ package com.lec.spring.training.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

@@ -6,6 +6,7 @@ import com.lec.spring.training.domain.GrantStatus;
 import com.lec.spring.training.domain.TrainerProfile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,8 @@ public interface TrainerDetailService {
     void getTrainerProfileByNickname(String nickname);
 
     // 트레이너 프로필 수정
-    boolean updateTrainerProfile(TrainerProfile trainerProfile, List<MultipartFile> files);
+    boolean updateTrainerProfile(TrainerProfile trainerProfile, List<MultipartFile> files) throws IOException;
+
 
 
 }// end TrainerDetailService
