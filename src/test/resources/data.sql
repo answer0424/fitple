@@ -1282,8 +1282,5 @@ SELECT *
 FROM User;
 SELECT *
 FROM HBTI;
-SELECT *
-FROM HBTI
-WHERE user_id = '1';
 
 
