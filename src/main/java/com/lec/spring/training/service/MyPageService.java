@@ -1,27 +1,29 @@
 package com.lec.spring.training.service;
 
 import com.lec.spring.training.DTO.CreateReservationDTO;
+import com.lec.spring.training.DTO.MonthReservationDTO;
 import com.lec.spring.training.DTO.StudentListDTO;
+import com.lec.spring.training.DTO.TodayReservationDTO;
 import com.lec.spring.training.domain.Reservation;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MyPageService {
     //- 이 달의 일정 띄우기
-    List<Reservation> filterSchedulesByMonth(Long userId, Date date);
+    List<MonthReservationDTO> filterSchedulesByMonth(Long userId, int month);
 
     //- 오늘의 일정 띄우기
-    List<Reservation> filterSchedulesByDay(Long userId, Date date);
+    List<TodayReservationDTO> filterSchedulesByDay(Long userId, LocalDate date);
 
-    //- 스탬프 상태 변경
+    //- 스탬프 상태 변경(시작, 완료 누르기)
     void updateStampStatus(String status, Long reservationId);
 
     //- 스탬프 띄우기
-    int showStampList();
+    int showStampList(Long studentId, Long trainerId);
 
     //- 쿠폰 사용 기능
-    void useCoupon();
+    void useCoupon(Long studentId, Long trainerId);
 
     //- 트레이너 별 쿠폰 페이지 변경 기능
     void changeCouponPageByTrainer(Long studentId, Long trainerId);
@@ -42,7 +44,7 @@ public interface MyPageService {
     void addSchedule(CreateReservationDTO reservationDTO);
 
     //- 회원별 일정 불러오기
-    List<Reservation> getSchedulesByMember();
+    List<MonthReservationDTO> getSchedulesByMember(Long studentId, Long trainerId);
 
     //- 트레이닝 id 찾기
     int findTrainingId(Long studentId, Long trainerId);
