@@ -24,7 +24,7 @@ public class User extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "GymId")
+    @JoinColumn(name = "gymId")
     @ToString.Exclude
     @JsonIgnore
     private Gym gym;
@@ -32,7 +32,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 30, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 500)
     @ToString.Exclude
     @JsonIgnore
     private String password;
@@ -68,4 +68,6 @@ public class User extends BaseEntity {
 
     @Column(length = 50)
     private String profileImage;
+
+
 }
