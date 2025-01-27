@@ -1,8 +1,21 @@
 package com.lec.spring.training.controller;
 
-import com.lec.spring.training.domain.Training;
+import com.lec.spring.training.DTO.SkillsDTO;
+import com.lec.spring.training.DTO.TrainerProfileDTO;
+import com.lec.spring.training.service.TrainerDetailService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
+
+@RequiredArgsConstructor
+@RestController
 public class MyPageController{
+
+    private final TrainerDetailService trainerDetailService;
 
     //- 내 일정 띄우기
 
@@ -38,6 +51,43 @@ public class MyPageController{
 
 
     //- 회원 일정 불러오기
+
+
+    // [트레이너 상세페이지 작성]
+    @PostMapping("/member/detail")
+    public ResponseEntity<Boolean> createTrainerProfile(
+            @RequestBody TrainerProfileDTO trainerProfileDTO,
+            @RequestParam List<SkillsDTO> skils
+            ) {
+        if(trainerProfileDTO.getTrainerId()==null  ) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, skils);
+
+        if(result){
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // [트레이너 상세페이지 수정]
+    @PatchMapping("/member/detial")
+    public ResponseEntity<Boolean> updateTrainerProfile(
+            @RequestBody TrainerProfileDTO trainerProfileDTO,
+            @RequestParam List<SkillsDTO> skils,
+            @RequestParam Long[] deletedSkillsId
+
+    ) throws IOException {
+        boolean result = trainerDetailService.updateTrainerProfile(trainerProfileDTO, skils, deletedSkillsId);
+        if(result){
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 
