@@ -1,5 +1,6 @@
 package com.lec.spring.base.config.oauth;
 
+import com.lec.spring.base.DTO.UserRegistrationDTO;
 import com.lec.spring.base.config.PrincipalDetails;
 import com.lec.spring.base.config.oauth.provider.GoogleUserInfo;
 import com.lec.spring.base.config.oauth.provider.KakaoUserInfo;
@@ -13,6 +14,9 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
@@ -67,6 +71,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         }
         String nickname = provider + "_" + email;
 
+
         System.out.println("""
                 [OAuth2인증 회원 정보]
                   username: %s
@@ -86,6 +91,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .email(email)
                     .username(username.toUpperCase())
                     .password(password)
+                    .nickname(nickname)
                     .authority("ROLE_STUDENT")
                     .provider(provider)
                     .providerId(providerId)

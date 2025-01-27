@@ -48,7 +48,7 @@ public class CustomOauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         System.out.println("oauth 인증 token: " + token);
 
         // cookie에 담기
-        response.addCookie(createCookie("access token", token));
+        response.addCookie(createCookie("accessToken", token));
 
         getRedirectStrategy().sendRedirect(request, response, authRedirectUri);
     }

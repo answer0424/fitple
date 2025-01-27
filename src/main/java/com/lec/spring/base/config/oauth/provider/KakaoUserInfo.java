@@ -25,8 +25,13 @@ public class KakaoUserInfo implements OAuth2UserInfo {
 
     @Override
     public String getEmail() {
-        return (String) kakaoAccountAttributes.get("email");  // 이메일을 kakao_account에서 가져오기
+        return null;
     }
+
+//    @Override
+//    public String getEmail() {
+//        return (String) kakaoAccountAttributes.get("email");  // 이메일을 kakao_account에서 가져오기
+//    }
 
     @Override
     public String getName() {
