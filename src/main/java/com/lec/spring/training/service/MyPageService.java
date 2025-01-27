@@ -47,4 +47,5 @@ public interface MyPageService {
     //- 트레이닝 id 찾기
     int findTrainingId(Long studentId, Long trainerId);
 
+
 } //end MyPageService

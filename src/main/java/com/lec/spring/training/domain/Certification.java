@@ -24,6 +24,9 @@ public class Certification {
     private TrainerProfile trainerProfile;
 
     @Column(name = "credentials")
-    private String credentials;
+    private String credentials; // 경로
+
+    @Column(nullable = false)
+    private String skills;
 }
 

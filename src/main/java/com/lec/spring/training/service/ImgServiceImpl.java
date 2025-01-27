@@ -21,12 +21,13 @@ public class ImgServiceImpl implements ImgService {
     }
 
     @Override
-    public Path saveImage(MultipartFile file, String dir) throws IOException {
+    public String saveImage(MultipartFile file, String dir) throws IOException {
         String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         Path path = Paths.get(dir, filename);
         Files.createDirectories(path.getParent());
         Files.write(path, file.getBytes());
-        return path;
+        return String.valueOf(path);
+        // return 값을 String path으로 줌으로 써 DB에 경로를 저장할 수 있게 한다..
     }
 
     @Override
@@ -40,4 +41,5 @@ public class ImgServiceImpl implements ImgService {
         Path path = Paths.get(dir, filename);
         Files.deleteIfExists(path);
     }
-}
+
+}// end TrainerDetailService

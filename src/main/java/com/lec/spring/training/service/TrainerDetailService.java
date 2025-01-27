@@ -1,6 +1,8 @@
 package com.lec.spring.training.service;
 
 import com.lec.spring.base.domain.User;
+import com.lec.spring.training.DTO.SkillsDTO;
+import com.lec.spring.training.DTO.TrainerProfileDTO;
 import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.GrantStatus;
 import com.lec.spring.training.domain.TrainerProfile;
@@ -13,7 +15,7 @@ import java.util.Optional;
 
 public interface TrainerDetailService {
     // 트레이너 프로필 생성
-    boolean createTrainerProfile(TrainerProfile trainerProfile, List<MultipartFile> files);
+    boolean createTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills);
 
 //    List<TrainerProfile> getAllTrainerProfiles();
 
@@ -21,7 +23,7 @@ public interface TrainerDetailService {
     void getTrainerProfileByNickname(String nickname);
 
     // 트레이너 프로필 수정
-    boolean updateTrainerProfile(TrainerProfile trainerProfile, List<MultipartFile> files) throws IOException;
+    boolean updateTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills, Long[] id) throws IOException;
 
 
 
