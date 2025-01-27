@@ -7,23 +7,24 @@ import com.lec.spring.training.DTO.TodayReservationDTO;
 import com.lec.spring.training.domain.Reservation;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MyPageService {
     //- 이 달의 일정 띄우기
-    List<MonthReservationDTO> filterSchedulesByMonth(String nickname, int month);
+    List<MonthReservationDTO> filterSchedulesByMonth(String username, int year, int month);
 
     //- 오늘의 일정 띄우기
-    List<TodayReservationDTO> filterSchedulesByDay(Long userId, LocalDate date);
+    List<TodayReservationDTO> filterSchedulesByDay(String username, LocalDateTime date);
 
     //- 스탬프 상태 변경(시작, 완료 누르기)
-    void updateStampStatus(String status, Long reservationId);
+    boolean updateStampStatus(String status, Long reservationId);
 
     //- 스탬프 띄우기
     int showStampList(Long studentId, Long trainerId);
 
     //- 쿠폰 사용 기능
-    void useCoupon(Long studentId, Long trainerId);
+    boolean useCoupon(Long studentId, Long trainerId);
 
     //- 트레이너 별 쿠폰 페이지 변경 기능
     void changeCouponPageByTrainer(Long studentId, Long trainerId);

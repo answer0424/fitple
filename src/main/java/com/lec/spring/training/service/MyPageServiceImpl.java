@@ -7,10 +7,14 @@ import com.lec.spring.training.DTO.CreateReservationDTO;
 import com.lec.spring.training.DTO.MonthReservationDTO;
 import com.lec.spring.training.DTO.StudentListDTO;
 import com.lec.spring.training.DTO.TodayReservationDTO;
+import com.lec.spring.training.domain.Reservation;
+import com.lec.spring.training.domain.ReservationStatus;
+import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.ReservationRepository;
 import com.lec.spring.training.repository.TrainingRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,37 +32,78 @@ public class MyPageServiceImpl implements MyPageService {
 
 
     @Override
-    public List<MonthReservationDTO> filterSchedulesByMonth(String username, int month) {
-        List<MonthReservationDTO> res = new ArrayList<>();
+    public List<MonthReservationDTO> filterSchedulesByMonth(String username, int year, int month) {
         User user = userRepository.findByUsername(username); // 현재 로그인한 유저
 
         if (user != null) {
-            if(user.getAuthority().equals("ROLE_TRAINER")) {
-//                reservationRepository.
-            }
+            return reservationRepository.findReservationsByUserAndMonth(user.getId(), year, month);
+        } else {
+            return null;
         }
-
-        return res;
     }
 
     @Override
-    public List<TodayReservationDTO> filterSchedulesByDay(Long userId, LocalDate date) {
-        return List.of();
+    public List<TodayReservationDTO> filterSchedulesByDay(String username, LocalDateTime date) {
+        User user = userRepository.findByUsername(username);
+
+        if (user != null) {
+            return reservationRepository.findTodayReservationsByUser(user.getId(), date);
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void updateStampStatus(String status, Long reservationId) {
+    public boolean updateStampStatus(String status, Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
 
+        if (reservation != null) {
+            reservation.setStatus(ReservationStatus.valueOf(status));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public int showStampList(Long studentId, Long trainerId) {
-        return 0;
+        long trainingId = findTrainingId(studentId, trainerId);
+
+        try {
+            Training training = trainingRepository.findById(trainingId).orElseThrow();
+
+            if (training.getTotal_stamps() >= 10) { //스탬프가 10개 이상이면 쿠폰으로 변환
+                int coupon = training.getTotal_stamps() / 10;
+
+                training.setTotal_stamps(training.getTotal_stamps() - (10 * coupon));
+                training.setCoupons(training.getCoupons() + coupon);
+                trainingRepository.save(training);
+            }
+
+            return training.getTotal_stamps();
+        }catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
-    public void useCoupon(Long studentId, Long trainerId) {
+    public boolean useCoupon(Long studentId, Long trainerId) {
+        long trainingId = findTrainingId(studentId, trainerId);
 
+        try {
+            Training training = trainingRepository.findById(trainingId).orElseThrow();
+
+            if (training.getCoupons() > 0) {
+                training.setCoupons(training.getCoupons() - 1);
+                training.setTimes(training.getTimes() + 1);
+                trainingRepository.save(training);
+            } else {
+                return false;
+            }
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

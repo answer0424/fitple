@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MonthReservationDTO {
-    Long trainingId;
+    Long reservationId;
     Long userId;
     String nickname;
     LocalDateTime date;
