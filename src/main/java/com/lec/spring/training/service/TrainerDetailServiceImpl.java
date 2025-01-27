@@ -6,12 +6,14 @@ import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.TrainerProfile;
 import com.lec.spring.training.repository.CertificationRepository;
 import com.lec.spring.training.repository.TrainerProfileRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class TrainerDetailServiceImpl implements TrainerDetailService {
 
     private final TrainerProfileRepository trainerProfileRepository;
@@ -26,6 +28,8 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         this.imgService = imgService;
     }
 
+
+    // # 트레이너 프로필 생성
     @Override
     @Transactional
     public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, List<SkillsDTO> skills) {
@@ -54,6 +58,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         }
     }
 
+    // # 트레이너 닉네임으로 프로필 가져오기
     @Override
     public void getTrainerProfileByNickname(String nickname) {
         // 유저리포지토리에서 findbynickname => get id
@@ -63,6 +68,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         //return 준우가 만드는거에 맞춰
     }
 
+    // 트레이너 프로필 수정
     @Override
     @Transactional
     public boolean updateTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills, Long[] deletedSkillsId) throws IOException {
