@@ -32,7 +32,7 @@ public class TrainerProfile {
     @Column(nullable = false)
     private String content;
 
-    @Column
+    @Column(nullable = false)
     private Date career;
 
     @Enumerated(EnumType.STRING)
