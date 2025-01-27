@@ -1,5 +1,7 @@
 package com.lec.spring.training.service;
 
+import com.lec.spring.base.config.PrincipalDetailService;
+import com.lec.spring.base.domain.User;
 import com.lec.spring.base.repository.UserRepository;
 import com.lec.spring.training.DTO.CreateReservationDTO;
 import com.lec.spring.training.DTO.MonthReservationDTO;
@@ -18,7 +20,7 @@ public class MyPageServiceImpl implements MyPageService {
     private final TrainingRepository trainingRepository;
     private final UserRepository userRepository;
 
-    public MyPageServiceImpl(ReservationRepository reservationRepository, TrainingRepository trainingRepository, UserRepository userRepository) {
+    public MyPageServiceImpl(ReservationRepository reservationRepository, TrainingRepository trainingRepository, UserRepository userRepository, PrincipalDetailService principalDetailService) {
         this.reservationRepository = reservationRepository;
         this.trainingRepository = trainingRepository;
         this.userRepository = userRepository;
@@ -26,10 +28,15 @@ public class MyPageServiceImpl implements MyPageService {
 
 
     @Override
-    public List<MonthReservationDTO> filterSchedulesByMonth(Long userId, int month) {
+    public List<MonthReservationDTO> filterSchedulesByMonth(String username, int month) {
         List<MonthReservationDTO> res = new ArrayList<>();
-        trainingRepository.findBy
+        User user = userRepository.findByUsername(username); // 현재 로그인한 유저
 
+        if (user != null) {
+            if(user.getAuthority().equals("ROLE_TRAINER")) {
+//                reservationRepository.
+            }
+        }
 
         return res;
     }

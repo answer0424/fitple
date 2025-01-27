@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface MyPageService {
     //- 이 달의 일정 띄우기
-    List<MonthReservationDTO> filterSchedulesByMonth(Long userId, int month);
+    List<MonthReservationDTO> filterSchedulesByMonth(String nickname, int month);
 
     //- 오늘의 일정 띄우기
     List<TodayReservationDTO> filterSchedulesByDay(Long userId, LocalDate date);
