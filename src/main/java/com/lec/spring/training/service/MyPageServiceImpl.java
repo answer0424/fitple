@@ -1,5 +1,6 @@
 package com.lec.spring.training.service;
 
+import com.lec.spring.base.repository.UserRepository;
 import com.lec.spring.training.DTO.CreateReservationDTO;
 import com.lec.spring.training.DTO.MonthReservationDTO;
 import com.lec.spring.training.DTO.StudentListDTO;
@@ -8,22 +9,29 @@ import com.lec.spring.training.repository.ReservationRepository;
 import com.lec.spring.training.repository.TrainingRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyPageServiceImpl implements MyPageService {
 
     private final ReservationRepository reservationRepository;
     private final TrainingRepository trainingRepository;
+    private final UserRepository userRepository;
 
-    public MyPageServiceImpl(ReservationRepository reservationRepository, TrainingRepository trainingRepository) {
+    public MyPageServiceImpl(ReservationRepository reservationRepository, TrainingRepository trainingRepository, UserRepository userRepository) {
         this.reservationRepository = reservationRepository;
         this.trainingRepository = trainingRepository;
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public List<MonthReservationDTO> filterSchedulesByMonth(Long userId, int month) {
-        return List.of();
+        List<MonthReservationDTO> res = new ArrayList<>();
+        trainingRepository.findBy
+
+
+        return res;
     }
 
     @Override
@@ -83,6 +91,6 @@ public class MyPageServiceImpl implements MyPageService {
 
     @Override
     public int findTrainingId(Long studentId, Long trainerId) {
-        return 0;
+        return trainingRepository.findByUserIdAndTrainerIdEquals(studentId, trainerId);
     }
 }
