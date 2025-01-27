@@ -6,6 +6,7 @@ import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.TrainerProfile;
 import com.lec.spring.training.repository.CertificationRepository;
 import com.lec.spring.training.repository.TrainerProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     private final ImgService imgService;
     private final  String imgDir ="com/lec/spring/util";
 
+    @Autowired
     public TrainerDetailServiceImpl(TrainerProfileRepository trainerProfileRepository, CertificationRepository certificationRepository, ImgService imgService) {
         this.trainerProfileRepository = trainerProfileRepository;
         this.certificationRepository = certificationRepository;
