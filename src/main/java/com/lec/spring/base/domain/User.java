@@ -62,8 +62,6 @@ public class User extends BaseEntity {
     private String providerId;
 
     @Column(length = 20)
-    @ToString.Exclude
-    @JsonIgnore
     private String authority;
 
     @Column(length = 50)
