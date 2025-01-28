@@ -2,12 +2,14 @@ package com.lec.spring.training.service;
 
 import com.lec.spring.base.config.PrincipalDetails;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface TrainerDetailService {
     // 트레이너 프로필 생성
-    boolean createTrainerProfile(TrainerProfileDTO trainerProfile, PrincipalDetails user);
+    boolean createTrainerProfile(TrainerProfileDTO trainerProfile, PrincipalDetails user, List<String> skills, List<MultipartFile> files);
 
 //    List<TrainerProfile> getAllTrainerProfiles();
 

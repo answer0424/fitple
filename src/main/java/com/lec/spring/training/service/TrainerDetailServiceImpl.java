@@ -15,10 +15,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.lec.spring.training.domain.GrantStatus.승인;
@@ -45,7 +48,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // # 트레이너 프로필 생성
     @Transactional
     @Override
-    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, PrincipalDetails user) {
+    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, PrincipalDetails user, List<String> skills, List<MultipartFile> images) {
         try {
 
 //            User trainer  = user.getUser();
@@ -64,19 +67,35 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
                     .isAccess(승인) // 원래는 없어야 하는 것이 맞음
                     .build();
 //            System.out.println("TrainerProfile : " + trainerProfile);
+            trainerProfileRepository.save(trainerProfile);// 프로필 저장후 skills 저장해야함.
 
-            trainerProfileRepository.save(trainerProfile);
-            if (trainerProfileDTO.getSkills() != null && !trainerProfileDTO.getSkills().isEmpty()) {
-                for (SkillsDTO file : trainerProfileDTO.getSkills()) {
-                    Certification certification = new Certification();
-                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "없습니다.");
-                    certification.setTrainerProfile(trainerProfile);
-                    trainerProfile.addCertificationList(certification);
-                    imgService.saveImage(file.getImg(), "imgDir");
+                // 여러 개의 스킬과 이미지가 있을 때 처리
+
+            // 이미지 저장을 imgService에서 다루기
+            for (int i = 0; i < skills.size() ; i++) {
+
+                    String skill = skills.get(i);
+                    MultipartFile image = images.get(i);
+
+                    // 이미지 파일 저장 경로 설정
+                    String uploadDir = "./uploads/";
+                    File uploadDirFile = new File(uploadDir);
+                    if (!uploadDirFile.exists()) {
+                        uploadDirFile.mkdirs();  // 디렉토리가 없으면 생성
+                    }
+
+                    // 파일 저장
+                    String filePath = uploadDir + image.getOriginalFilename();
+                    image.transferTo(new File(filePath));
+
+                    // 이곳에 데이터베이스 저장 등 추가적인 작업 가능
+
                 }
-            }
 
-            return true;
+
+
+
+                return true;
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -141,3 +160,12 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
 
 
 }// end TrainerDetailService
+
+/*
+*TODO
+* 설계!! 를 생각하면서 코드 짜기!
+* imgService 중첩적인 것 합치기 (어떤 차이가 있는지 공부하기!)
+* img 데이터 베이스에 저장하는 코드 작성하기
+* 리뷰서비스 가져와서 잘 출력되는지 확인하기
+* 오후 8시 30분 -> 안된다고 하면 내일
+* */

@@ -43,3 +43,4 @@ public class ImgServiceImpl implements ImgService {
     }
 
 }// end TrainerDetailService
+

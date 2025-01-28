@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,15 +57,16 @@ public class MyPageController{
 
 
     // [트레이너 상세페이지 작성]
+    /*메소드와 메소드 사이에 정보를 보낼 때는 매개변수로 보내는 것을 잊지말자.!*/
     @PostMapping("/member/detail")
     public ResponseEntity<Boolean> createTrainerProfile(
-            @RequestBody TrainerProfileDTO trainerProfileDTO, @AuthenticationPrincipal PrincipalDetails user
+            @RequestBody TrainerProfileDTO trainerProfileDTO, @AuthenticationPrincipal PrincipalDetails user,
+            @RequestParam("skills") List<String> skills, @RequestParam("img") List<MultipartFile> image
             ) {
         if(trainerProfileDTO.getTrainerId()==null  ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, user);
-
+        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, user, skills, image);
 
         if(result){
             return new ResponseEntity<>(true, HttpStatus.OK);
