@@ -1,11 +1,13 @@
 package com.lec.spring.training.controller;
 
+import com.lec.spring.base.config.PrincipalDetails;
 import com.lec.spring.training.DTO.SkillsDTO;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
 import com.lec.spring.training.service.TrainerDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -56,12 +58,13 @@ public class MyPageController{
     // [트레이너 상세페이지 작성]
     @PostMapping("/member/detail")
     public ResponseEntity<Boolean> createTrainerProfile(
-            @RequestBody TrainerProfileDTO trainerProfileDTO
+            @RequestBody TrainerProfileDTO trainerProfileDTO, @AuthenticationPrincipal PrincipalDetails user
             ) {
         if(trainerProfileDTO.getTrainerId()==null  ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO);
+        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, user);
+
 
         if(result){
             return new ResponseEntity<>(true, HttpStatus.OK);

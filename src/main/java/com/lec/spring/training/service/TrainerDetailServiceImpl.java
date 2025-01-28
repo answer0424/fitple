@@ -1,19 +1,23 @@
 package com.lec.spring.training.service;
 
+import com.lec.spring.base.config.PrincipalDetails;
 import com.lec.spring.base.domain.User;
 import com.lec.spring.base.repository.UserRepository;
 import com.lec.spring.training.DTO.SkillsDTO;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
+import com.lec.spring.training.controller.MyPageController;
 import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.TrainerProfile;
 import com.lec.spring.training.repository.CertificationRepository;
 import com.lec.spring.training.repository.TrainerProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -41,34 +45,31 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // # 트레이너 프로필 생성
     @Transactional
     @Override
-    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO) {
+    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, PrincipalDetails user) {
         try {
 
-            // 임시 트레이너 객체 생성
+//            User trainer  = user.getUser();
+
             User trainer = new User();
             trainer.setId(1L);
             trainer.setNickname("지윤");
             trainer.setUsername("wldbs");
             trainer.setEmail("johndoe@example.com"); // 임시 이메일
             trainer.setPassword("123456");
-            userRepository.save(trainer);
-
-
             TrainerProfile trainerProfile = TrainerProfile.builder()
-                    .trainer(trainer)
-//                   .trainer(trainerProfileDTO.getTrainerId()) // UserRepository 필요(정보를 가져오는것 DB, DB와 연결 => Repository)
+                    .trainer(trainer) // UserRepository 필요(정보를 가져오는것 DB, DB와 연결 => Repository)
                     .career(trainerProfileDTO.getCareer())
                     .content(trainerProfileDTO.getContent())
                     .perPrice(trainerProfileDTO.getPerPrice())
-                    .isAccess(승인)
+                    .isAccess(승인) // 원래는 없어야 하는 것이 맞음
                     .build();
-            System.out.println("TrainerProfile : " + trainerProfile);
+//            System.out.println("TrainerProfile : " + trainerProfile);
 
             trainerProfileRepository.save(trainerProfile);
             if (trainerProfileDTO.getSkills() != null && !trainerProfileDTO.getSkills().isEmpty()) {
                 for (SkillsDTO file : trainerProfileDTO.getSkills()) {
                     Certification certification = new Certification();
-                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "");
+                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "없습니다.");
                     certification.setTrainerProfile(trainerProfile);
                     trainerProfile.addCertificationList(certification);
                     imgService.saveImage(file.getImg(), "imgDir");
