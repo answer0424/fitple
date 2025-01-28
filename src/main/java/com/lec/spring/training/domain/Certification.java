@@ -27,6 +27,6 @@ public class Certification {
     private String credentials; // 경로
 
     @Column(nullable = false)
-    private String skills;
+    private String skills= "";
 }
 

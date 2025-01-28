@@ -6,7 +6,6 @@ import com.lec.spring.training.DTO.SkillsDTO;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
 import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.TrainerProfile;
-import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.CertificationRepository;
 import com.lec.spring.training.repository.TrainerProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static com.lec.spring.training.domain.GrantStatus.승인;
@@ -64,12 +62,13 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
                     .perPrice(trainerProfileDTO.getPerPrice())
                     .isAccess(승인)
                     .build();
-
+            System.out.println("TrainerProfile : " + trainerProfile);
 
             trainerProfileRepository.save(trainerProfile);
             if (trainerProfileDTO.getSkills() != null && !trainerProfileDTO.getSkills().isEmpty()) {
                 for (SkillsDTO file : trainerProfileDTO.getSkills()) {
                     Certification certification = new Certification();
+                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "");
                     certification.setTrainerProfile(trainerProfile);
                     trainerProfile.addCertificationList(certification);
                     imgService.saveImage(file.getImg(), "imgDir");
@@ -97,7 +96,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // 트레이너 프로필 수정
     @Override
     @Transactional
-    public boolean updateTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills, Long[] deletedSkillsId) throws IOException {
+    public boolean updateTrainerProfile(TrainerProfileDTO trainerProfile) throws IOException {
         /*
         *  현재 흐름 -> 수정된 것만 가져오는 것
         *   react에서 useState하는 과정에서 별개의 값이 아닌 전체값을 가져오게 될 경우
@@ -106,22 +105,22 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         * */
 
         try{
-            TrainerProfile profile = trainerProfileRepository.findById(1L) //현재 로그인한 유저 or 마이페이지 url로 확인
+            TrainerProfile profile = trainerProfileRepository.findById(trainerProfile.getTrainerId()) //현재 로그인한 유저 or 마이페이지 url로 확인
                     .orElseThrow(() -> new IllegalArgumentException("해당 ID의 트레이너 프로필이 존재하지 않습니다."));
 
             if (trainerProfile.getPerPrice() != null) profile.setPerPrice(trainerProfile.getPerPrice());
             if (trainerProfile.getContent() != null) profile.setContent(trainerProfile.getContent());
             if (trainerProfile.getCareer() != null) profile.setCareer(trainerProfile.getCareer());
-            if (deletedSkillsId != null && deletedSkillsId.length > 0) {
+            if (trainerProfile.getDeletedSkillsId() != null && trainerProfile.getDeletedSkillsId() .length > 0) {
                 // 삭제된 경력이 존재한다면
-                for (Long id : deletedSkillsId) {
+                for (Long id : trainerProfile.getDeletedSkillsId() ) {
                     certificationRepository.deleteById(id);
                 }
             }
-            if (skills != null && !skills.isEmpty()) {
-                for (SkillsDTO file : skills) {
+            if (trainerProfile.getSkills() != null && !trainerProfile.getSkills() .isEmpty()) {
+                for (SkillsDTO file : trainerProfile.getSkills() ) {
                     Certification certification = new Certification();
-                    certification.setSkills(file.getSkills());
+                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "");
                     certification.setTrainerProfile(profile);
                     // 명시적으로 Certification 저장
                     certificationRepository.save(certification);
@@ -133,31 +132,32 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
             trainerProfileRepository.save(profile);
             return true;
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
     public TrainerProfileDTO getTrainerProfileById(Long id) {
-        try {
-            Optional<TrainerProfile> optionalTrainerProfile = trainerProfileRepository.findById(id);
-            if (optionalTrainerProfile.isPresent()) {
-                TrainerProfile trainerProfile = optionalTrainerProfile.get();
-                TrainerProfileDTO trainerProfileDTO = new TrainerProfileDTO();
-                trainerProfileDTO.setCareer(trainerProfile.getCareer());
-                trainerProfileDTO.setContent(trainerProfile.getContent());
-                trainerProfileDTO.setPerPrice(trainerProfile.getPerPrice());
-                for (Certification certification : trainerProfile.getCertificationList()) {
-                    SkillsDTO skillsDTO = new SkillsDTO();
-                    skillsDTO.setSkills(certification.getSkills());
-                }
-                return trainerProfileDTO;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return null;
-        }
+//        try {
+//            Optional<TrainerProfile> optionalTrainerProfile = trainerProfileRepository.findById(id);
+//            if (optionalTrainerProfile.isPresent()) {
+//                TrainerProfile trainerProfile = optionalTrainerProfile.get();
+//                TrainerProfileDTO trainerProfileDTO = new TrainerProfileDTO();
+//                trainerProfileDTO.setCareer(trainerProfile.getCareer());
+//                trainerProfileDTO.setContent(trainerProfile.getContent());
+//                trainerProfileDTO.setPerPrice(trainerProfile.getPerPrice());
+//                for (Certification certification : trainerProfile.getCertificationList()) {
+//                    SkillsDTO skillsDTO = new SkillsDTO();
+//                    skillsDTO.setSkills(certification.getSkills());
+//                }
+//                return trainerProfileDTO;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//            return null;
+//        }
 return null;
     }
 

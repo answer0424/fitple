@@ -29,6 +29,8 @@ public class TrainerProfileDTO {
 
     private List<SkillsDTO> skills;
 
+    private Long[] deletedSkillsId;
+
 
 }// end TrainerProfileDTO
 

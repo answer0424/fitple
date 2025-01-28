@@ -73,12 +73,10 @@ public class MyPageController{
     // [트레이너 상세페이지 수정]
     @PatchMapping("/member/detail")
     public ResponseEntity<Boolean> updateTrainerProfile(
-            @RequestBody TrainerProfileDTO trainerProfileDTO,
-            @RequestParam List<SkillsDTO> skils,
-            @RequestParam Long[] deletedSkillsId
+            @RequestBody TrainerProfileDTO trainerProfileDTO
 
     ) throws IOException {
-        boolean result = trainerDetailService.updateTrainerProfile(trainerProfileDTO, skils, deletedSkillsId);
+        boolean result = trainerDetailService.updateTrainerProfile(trainerProfileDTO);
         if(result){
             return new ResponseEntity<>(true, HttpStatus.OK);
         }else{
