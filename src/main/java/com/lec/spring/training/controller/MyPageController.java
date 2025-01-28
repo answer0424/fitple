@@ -84,17 +84,6 @@ public class MyPageController{
         }
     }
 
-    // [트레이너 상세페이지 조회]
-    @GetMapping("/member/detail")
-    public ResponseEntity<TrainerProfileDTO> getTrainerProfile(@RequestParam Long trainerId) {
-        TrainerProfileDTO trainerProfileDTO = trainerDetailService.getTrainerProfileById(trainerId);
-        if (trainerProfileDTO != null) {
-            return new ResponseEntity<>(trainerProfileDTO, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
 
 
 

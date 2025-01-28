@@ -45,7 +45,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         try {
 
             // 임시 트레이너 객체 생성
-                User trainer = new User();
+            User trainer = new User();
             trainer.setId(1L);
             trainer.setNickname("지윤");
             trainer.setUsername("wldbs");
@@ -137,29 +137,6 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         }
     }
 
-    @Override
-    public TrainerProfileDTO getTrainerProfileById(Long id) {
-//        try {
-//            Optional<TrainerProfile> optionalTrainerProfile = trainerProfileRepository.findById(id);
-//            if (optionalTrainerProfile.isPresent()) {
-//                TrainerProfile trainerProfile = optionalTrainerProfile.get();
-//                TrainerProfileDTO trainerProfileDTO = new TrainerProfileDTO();
-//                trainerProfileDTO.setCareer(trainerProfile.getCareer());
-//                trainerProfileDTO.setContent(trainerProfile.getContent());
-//                trainerProfileDTO.setPerPrice(trainerProfile.getPerPrice());
-//                for (Certification certification : trainerProfile.getCertificationList()) {
-//                    SkillsDTO skillsDTO = new SkillsDTO();
-//                    skillsDTO.setSkills(certification.getSkills());
-//                }
-//                return trainerProfileDTO;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//            return null;
-//        }
-return null;
-    }
 
 
 }// end TrainerDetailService
