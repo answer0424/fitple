@@ -26,9 +26,6 @@ public class TrainerProfile {
     @Column(nullable = false)
     private Integer perPrice;
 
-    @Column(nullable = false, columnDefinition = "JSON")
-    private String skills;
-
     @Column(nullable = false)
     private String content;
 
