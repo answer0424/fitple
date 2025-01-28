@@ -1,18 +1,25 @@
 package com.lec.spring.training.service;
 
+import com.lec.spring.base.domain.User;
+import com.lec.spring.base.repository.UserRepository;
 import com.lec.spring.training.DTO.SkillsDTO;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
 import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.TrainerProfile;
+import com.lec.spring.training.domain.Training;
 import com.lec.spring.training.repository.CertificationRepository;
 import com.lec.spring.training.repository.TrainerProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static com.lec.spring.training.domain.GrantStatus.승인;
 
 @Service
 public class TrainerDetailServiceImpl implements TrainerDetailService {
@@ -22,40 +29,57 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // UserRepository 필요
     private final ImgService imgService;
     private final  String imgDir ="com/lec/spring/util";
+    private final UserRepository userRepository;
 
     @Autowired
-    public TrainerDetailServiceImpl(TrainerProfileRepository trainerProfileRepository, CertificationRepository certificationRepository, ImgService imgService) {
+    public TrainerDetailServiceImpl(TrainerProfileRepository trainerProfileRepository, CertificationRepository certificationRepository, ImgService imgService, UserRepository userRepository) {
         this.trainerProfileRepository = trainerProfileRepository;
         this.certificationRepository = certificationRepository;
         this.imgService = imgService;
+        this.userRepository = userRepository;
     }
 
 
     // # 트레이너 프로필 생성
-    @Override
     @Transactional
-    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, List<SkillsDTO> skills) {
+    @Override
+    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO) {
         try {
+
+            // 임시 트레이너 객체 생성
+                User trainer = new User();
+            trainer.setId(1L);
+            trainer.setNickname("지윤");
+            trainer.setUsername("wldbs");
+            trainer.setEmail("johndoe@example.com"); // 임시 이메일
+            trainer.setPassword("123456");
+            userRepository.save(trainer);
+
+
             TrainerProfile trainerProfile = TrainerProfile.builder()
-//                    .trainer(trainerProfileDTO.getTrainerId()) // UserRepository 필요(정보를 가져오는것 DB, DB와 연결 => Repository)
+                    .trainer(trainer)
+//                   .trainer(trainerProfileDTO.getTrainerId()) // UserRepository 필요(정보를 가져오는것 DB, DB와 연결 => Repository)
                     .career(trainerProfileDTO.getCareer())
                     .content(trainerProfileDTO.getContent())
                     .perPrice(trainerProfileDTO.getPerPrice())
+                    .isAccess(승인)
                     .build();
 
 
             trainerProfileRepository.save(trainerProfile);
-            if (skills != null && !skills.isEmpty()) {
-                for (SkillsDTO file : skills) {
+            if (trainerProfileDTO.getSkills() != null && !trainerProfileDTO.getSkills().isEmpty()) {
+                for (SkillsDTO file : trainerProfileDTO.getSkills()) {
                     Certification certification = new Certification();
                     certification.setTrainerProfile(trainerProfile);
                     trainerProfile.addCertificationList(certification);
-                    imgService.saveImage(file.getImg(), imgDir);
+                    imgService.saveImage(file.getImg(), "imgDir");
                 }
             }
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return false;
         }
     }
@@ -111,6 +135,30 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public TrainerProfileDTO getTrainerProfileById(Long id) {
+        try {
+            Optional<TrainerProfile> optionalTrainerProfile = trainerProfileRepository.findById(id);
+            if (optionalTrainerProfile.isPresent()) {
+                TrainerProfile trainerProfile = optionalTrainerProfile.get();
+                TrainerProfileDTO trainerProfileDTO = new TrainerProfileDTO();
+                trainerProfileDTO.setCareer(trainerProfile.getCareer());
+                trainerProfileDTO.setContent(trainerProfile.getContent());
+                trainerProfileDTO.setPerPrice(trainerProfile.getPerPrice());
+                for (Certification certification : trainerProfile.getCertificationList()) {
+                    SkillsDTO skillsDTO = new SkillsDTO();
+                    skillsDTO.setSkills(certification.getSkills());
+                }
+                return trainerProfileDTO;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return null;
+        }
+return null;
     }
 
 

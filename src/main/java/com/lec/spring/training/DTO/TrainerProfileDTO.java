@@ -27,7 +27,7 @@ public class TrainerProfileDTO {
 //    private List<Certification> certificationList = new ArrayList<>();
     // List<MultipartFile> <- TrainerDetailService에서 매개변수로 받기 때문에
 
-
+    private List<SkillsDTO> skills;
 
 
 }// end TrainerProfileDTO

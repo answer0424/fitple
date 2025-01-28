@@ -1,21 +1,14 @@
 package com.lec.spring.training.service;
 
-import com.lec.spring.base.domain.User;
 import com.lec.spring.training.DTO.SkillsDTO;
 import com.lec.spring.training.DTO.TrainerProfileDTO;
-import com.lec.spring.training.domain.Certification;
-import com.lec.spring.training.domain.GrantStatus;
-import com.lec.spring.training.domain.TrainerProfile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface TrainerDetailService {
     // 트레이너 프로필 생성
-    boolean createTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills);
+    boolean createTrainerProfile(TrainerProfileDTO trainerProfile);
 
 //    List<TrainerProfile> getAllTrainerProfiles();
 
@@ -25,6 +18,7 @@ public interface TrainerDetailService {
     // 트레이너 프로필 수정
     boolean updateTrainerProfile(TrainerProfileDTO trainerProfile, List<SkillsDTO> skills, Long[] id) throws IOException;
 
-
+    // 트레이너 프로필 가져오기
+    TrainerProfileDTO getTrainerProfileById(Long id);
 
 }// end TrainerDetailService

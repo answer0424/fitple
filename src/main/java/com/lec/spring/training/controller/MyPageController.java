@@ -56,13 +56,12 @@ public class MyPageController{
     // [트레이너 상세페이지 작성]
     @PostMapping("/member/detail")
     public ResponseEntity<Boolean> createTrainerProfile(
-            @RequestBody TrainerProfileDTO trainerProfileDTO,
-            @RequestParam List<SkillsDTO> skils
+            @RequestBody TrainerProfileDTO trainerProfileDTO
             ) {
         if(trainerProfileDTO.getTrainerId()==null  ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, skils);
+        boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO);
 
         if(result){
             return new ResponseEntity<>(true, HttpStatus.OK);
@@ -72,7 +71,7 @@ public class MyPageController{
     }
 
     // [트레이너 상세페이지 수정]
-    @PatchMapping("/member/detial")
+    @PatchMapping("/member/detail")
     public ResponseEntity<Boolean> updateTrainerProfile(
             @RequestBody TrainerProfileDTO trainerProfileDTO,
             @RequestParam List<SkillsDTO> skils,
@@ -87,6 +86,16 @@ public class MyPageController{
         }
     }
 
+    // [트레이너 상세페이지 조회]
+    @GetMapping("/member/detail")
+    public ResponseEntity<TrainerProfileDTO> getTrainerProfile(@RequestParam Long trainerId) {
+        TrainerProfileDTO trainerProfileDTO = trainerDetailService.getTrainerProfileById(trainerId);
+        if (trainerProfileDTO != null) {
+            return new ResponseEntity<>(trainerProfileDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 
