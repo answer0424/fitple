@@ -37,7 +37,7 @@ public class TrainerProfile {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private GrantStatus isAccess;
+    private GrantStatus isAccess = GrantStatus.valueOf("대기");
 
     @OneToMany(mappedBy = "trainerProfile", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

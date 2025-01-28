@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -25,14 +28,16 @@ public class Reservation {
     private Training training;
 
     @Column(nullable = false)
-    private LocalDate date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReservationStatus status = ReservationStatus.운동전;;
+    private ReservationStatus status = ReservationStatus.운동전;
 
     @Column(name = "startTime")
-    private LocalDateTime startTime;
+    @Temporal(TemporalType.TIME)
+    private LocalTime startTime;
 
     @Column
     private Integer exerciseTime;
