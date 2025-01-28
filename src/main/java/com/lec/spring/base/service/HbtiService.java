@@ -55,12 +55,32 @@ public class HbtiService {
         List<Integer> cScores = answers.subList(6, 9);
         List<Integer> pScores = answers.subList(9, 12);
 
+        double mPercent = roundToOneDecimalPlace(calculateAverage(mScores));
+        double ePercent = roundToOneDecimalPlace(calculateAverage(eScores));
+        double cPercent = roundToOneDecimalPlace(calculateAverage(cScores));
+        double pPercent = roundToOneDecimalPlace(calculateAverage(pScores));
+
+        double bPercent = roundToOneDecimalPlace(100 - mPercent);
+        double iPercent = roundToOneDecimalPlace(100 - ePercent);
+        double nPercent = roundToOneDecimalPlace(100 - cPercent);
+        double gPercent = roundToOneDecimalPlace(100 - pPercent);
+
+        // 보정 로직: 합계 조정
+        bPercent = adjustComplementaryValue(mPercent, bPercent);
+        iPercent = adjustComplementaryValue(ePercent, iPercent);
+        nPercent = adjustComplementaryValue(cPercent, nPercent);
+        gPercent = adjustComplementaryValue(pPercent, gPercent);
+
         // 결과 저장
         Map<String, Double> percentages = new HashMap<>();
-        percentages.put("M", roundToOneDecimalPlace(calculateAverage(mScores)));
-        percentages.put("E", roundToOneDecimalPlace(calculateAverage(eScores)));
-        percentages.put("C", roundToOneDecimalPlace(calculateAverage(cScores)));
-        percentages.put("P", roundToOneDecimalPlace(calculateAverage(pScores)));
+        percentages.put("M", mPercent);
+        percentages.put("B", bPercent);
+        percentages.put("E", ePercent);
+        percentages.put("I", iPercent);
+        percentages.put("C", cPercent);
+        percentages.put("N", nPercent);
+        percentages.put("P", pPercent);
+        percentages.put("G", gPercent);
 
         System.out.println("calculateHbtiPercentages 끝");
         return percentages;
@@ -74,10 +94,10 @@ public class HbtiService {
      */
     public String determineHbti(Map<String, Double> percentages) {
         StringBuilder hbti = new StringBuilder();
-        hbti.append(percentages.get("M") >= 50.0 ? "M" : "B");
-        hbti.append(percentages.get("E") >= 50.0 ? "E" : "I");
-        hbti.append(percentages.get("C") >= 50.0 ? "C" : "N");
-        hbti.append(percentages.get("P") >= 50.0 ? "P" : "G");
+        hbti.append(percentages.get("M") >= percentages.get("B") ? "M" : "B");
+        hbti.append(percentages.get("E") >= percentages.get("I") ? "E" : "I");
+        hbti.append(percentages.get("C") >= percentages.get("N") ? "C" : "N");
+        hbti.append(percentages.get("P") >= percentages.get("G") ? "P" : "G");
         System.out.println("determineHbti 끝");
         return hbti.toString();
     }
@@ -177,9 +197,13 @@ public class HbtiService {
         HBTI hbti = getHbtiByUserId(userId);
         Map<String, Double> percentages = new HashMap<>();
         percentages.put("M", hbti.getMbScore());
+        percentages.put("B", 100 - hbti.getMbScore());
         percentages.put("E", hbti.getEiScore());
+        percentages.put("I", 100 - hbti.getEiScore());
         percentages.put("C", hbti.getCnScore());
+        percentages.put("N", 100 - hbti.getCnScore());
         percentages.put("P", hbti.getPgScore());
+        percentages.put("G", 100 - hbti.getPgScore());
 
         Map<String, Object> hbtiDetails = getHbtiDataByType(hbti.getHbti());
 
@@ -201,9 +225,13 @@ public class HbtiService {
         HBTI hbti = getHbtiByUserId(userId);
         Map<String, Double> percentages = Map.of(
                 "M", hbti.getMbScore(),
+                "B", 100 - hbti.getMbScore(),
                 "E", hbti.getEiScore(),
+                "I", 100 - hbti.getEiScore(),
                 "C", hbti.getCnScore(),
-                "P", hbti.getPgScore()
+                "N", 100 - hbti.getCnScore(),
+                "P", hbti.getPgScore(),
+                "G", 100 - hbti.getPgScore()
         );
 
         // JSON 데이터 로드 및 트레이너 HBTI와의 매칭 계산
@@ -268,8 +296,16 @@ public class HbtiService {
                 (matchScores.get("M_B") + matchScores.get("E_I") + matchScores.get("C_N") + matchScores.get("P_G")) / 4
         );
     }
-} // end class
 
+    private double adjustComplementaryValue(double primary, double complementary) {
+        double sum = primary + complementary;
+        if (sum != 100.0) {
+            double adjustment = 100.0 - sum;
+            return roundToOneDecimalPlace(complementary + adjustment);
+        }
+        return complementary;
+    }
+} // end class
 
 
 
