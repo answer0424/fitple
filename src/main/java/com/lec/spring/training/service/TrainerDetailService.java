@@ -16,7 +16,6 @@ public interface TrainerDetailService {
     // 트레이너 프로필 수정
     boolean updateTrainerProfile(TrainerProfileDTO trainerProfile) throws IOException;
 
-    // 트레이너 프로필 가져오기
-    TrainerProfileDTO getTrainerProfileById(Long id);
+
 
 }// end TrainerDetailService
