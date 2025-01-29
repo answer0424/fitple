@@ -8,7 +8,7 @@ import java.util.List;
 public interface ImgService {
 
     // 여러이미지 파일 저장 ->  List
-    void saveImages(List<MultipartFile> files, String dir) throws IOException;
+    List<String> saveImages(List<MultipartFile> files, String dir) throws IOException;
     // 단일 이미지 저장 -> MulitpartFile (필요한가?)
     String saveImage(MultipartFile file, String dir) throws IOException;
     // img 불러오기

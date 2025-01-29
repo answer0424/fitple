@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static com.lec.spring.training.domain.GrantStatus.승인;
 
+
 @Service
 public class TrainerDetailServiceImpl implements TrainerDetailService {
 
@@ -69,31 +70,13 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
 //            System.out.println("TrainerProfile : " + trainerProfile);
             trainerProfileRepository.save(trainerProfile);// 프로필 저장후 skills 저장해야함.
 
-                // 여러 개의 스킬과 이미지가 있을 때 처리
 
             // 이미지 저장을 imgService에서 다루기
-            for (int i = 0; i < skills.size() ; i++) {
-
-                    String skill = skills.get(i);
-                    MultipartFile image = images.get(i);
-
-                    // 이미지 파일 저장 경로 설정
-                    String uploadDir = "./uploads/";
-                    File uploadDirFile = new File(uploadDir);
-                    if (!uploadDirFile.exists()) {
-                        uploadDirFile.mkdirs();  // 디렉토리가 없으면 생성
-                    }
-
-                    // 파일 저장
-                    String filePath = uploadDir + image.getOriginalFilename();
-                    image.transferTo(new File(filePath));
-
-                    // 이곳에 데이터베이스 저장 등 추가적인 작업 가능
-
-                }
-
-
-
+            List<String> skillList = new ArrayList<>();
+            for(MultipartFile skill : images){
+                String savePath = imgService.saveImage(skill, "./uploads/");
+                skillList.add(savePath);
+            }
 
                 return true;
         } catch (Exception e) {
@@ -116,7 +99,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // 트레이너 프로필 수정
     @Override
     @Transactional
-    public boolean updateTrainerProfile(TrainerProfileDTO trainerProfile) throws IOException {
+    public boolean updateTrainerProfile(TrainerProfileDTO trainerProfile,  List<String> skills, List<MultipartFile> images) throws IOException {
         /*
         *  현재 흐름 -> 수정된 것만 가져오는 것
         *   react에서 useState하는 과정에서 별개의 값이 아닌 전체값을 가져오게 될 경우
@@ -137,19 +120,14 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
                     certificationRepository.deleteById(id);
                 }
             }
-            if (trainerProfile.getSkills() != null && !trainerProfile.getSkills() .isEmpty()) {
-                for (SkillsDTO file : trainerProfile.getSkills() ) {
-                    Certification certification = new Certification();
-                    certification.setSkills(file.getSkills() != null ? file.getSkills() : "");
-                    certification.setTrainerProfile(profile);
-                    // 명시적으로 Certification 저장
-                    certificationRepository.save(certification);
-                    profile.addCertificationList(certification);
-                }
-
+            trainerProfileRepository.save(profile);
+            // 이미지 저장을 imgService에서 다루기
+         List<String> skillList = new ArrayList<>();
+            for(MultipartFile skill : images){
+                String savePath = imgService.saveImage(skill, "./uploads/");
+                skillList.add(savePath);
             }
 
-            trainerProfileRepository.save(profile);
             return true;
         }catch (Exception e){
             e.printStackTrace();

@@ -17,7 +17,7 @@ public interface TrainerDetailService {
     void getTrainerProfileByNickname(String nickname);
 
     // 트레이너 프로필 수정
-    boolean updateTrainerProfile(TrainerProfileDTO trainerProfile) throws IOException;
+    boolean updateTrainerProfile(TrainerProfileDTO trainerProfile,  List<String> skills, List<MultipartFile> images) throws IOException;
 
 
 
