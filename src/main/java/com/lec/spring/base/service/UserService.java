@@ -26,6 +26,7 @@ public class UserService {
     }
 
     public User registerUser(UserRegistrationDTO registrationDTO, String role) {
+        System.out.println("회원가입을 시도하는 유저 정보 등록하는 중");
         String email = registrationDTO.getEmail();
         String username = registrationDTO.getUsername();
         String password = passwordEncoder.encode(registrationDTO.getPassword());
@@ -58,14 +59,22 @@ public class UserService {
 
         // trainer 회원가입 시 GYM 정보도 같이 저장
         if("ROLE_TRAINER".equals(role)) {
-            Gym gym = Gym.builder()
-                    .name(gymName)
-                    .address(address)
-                    .latitude(latitude)
-                    .longitude(longitude)
-                    .build();
-            gymRepository.save(gym);
+            Gym gym = gymRepository.findByAddress(address);
+            if(gym == null) {
+                gym = Gym.builder()
+                        .name(gymName)
+                        .address(address)
+                        .latitude(latitude)
+                        .longitude(longitude)
+                        .build();
+                gymRepository.save(gym);
+            }
+
+            user.setGym(gym);   // gymId 저장
+            user = userRepository.save(user);
             System.out.println("트레이너로 회원가입 되었습니다." + gym);
+        } else{
+            System.out.println("학생으로 회원가입 되었습니다." + user);
         }
 
        return user;
