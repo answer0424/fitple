@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.naming.Context;
@@ -19,6 +20,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
+@Service
 public class ResetPasswordServiceImpl implements ResetPasswordService {
     private final RedisTemplate redisTemplate;
     private JavaMailSender mailSender;
@@ -41,23 +43,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
 
         number = (int) (Math.random() * 90000) + 100000;
     }
-    // user에 이메일로 재설정 링크 보내는 동작
-    @Override
-    public MimeMessage createEmail(EmailMessage email) {
-        createNumber(); // 인증번호 생성
-        emailAuthService.storeAuthCode(email.getTo(), String.valueOf(number));
-        MimeMessage message = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
-            mimeMessageHelper.setTo(email.getTo());
-            mimeMessageHelper.setSubject(email.getSubject());
-            mimeMessageHelper.setText(email.getMessage(), true);
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    return message;
-    }
+
 
     @Override
     public boolean isExistEmail(String email) {
