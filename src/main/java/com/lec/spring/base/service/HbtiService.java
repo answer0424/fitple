@@ -25,7 +25,7 @@ public class HbtiService {
 
     private final HbtiRepository hbtiRepository;
     private final UserRepository userRepository;
-    private final Path jsonFilePath;
+    private final String hbtiJsonContent; // JSON 내용을 문자열로 주입받음
 
     /**
      * JSON 데이터 로드
@@ -34,10 +34,8 @@ public class HbtiService {
      */
     private Map<String, Object> loadHbtiData() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonContent = Files.readString(jsonFilePath);
-        return mapper.readValue(jsonContent, new TypeReference<Map<String, Object>>() {});
+        return mapper.readValue(hbtiJsonContent, new TypeReference<Map<String, Object>>() {});
     }
-
     /**
      * 답변을 기반으로 각 성향의 퍼센트를 계산
      * @param answers 사용자가 응답한 답변 리스트 (12개)
@@ -175,7 +173,11 @@ public class HbtiService {
             throw new IllegalArgumentException("HBTI 유형이 잘못되었습니다: " + hbtiType);
         }
 
-        return (Map<String, Object>) hbtiData.get(hbtiType);
+        // 기존 데이터에 hbtiType을 추가
+        Map<String, Object> result = new HashMap<>((Map<String, Object>) hbtiData.get(hbtiType));
+        result.put("hbtiType", hbtiType); // HBTI 유형 추가
+
+        return result;
     }
 
     /**
