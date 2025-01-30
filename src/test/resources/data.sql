@@ -1278,5 +1278,9 @@ SELECT *
 FROM trainer_profile;
 SELECT *
 FROM certification;
+SELECT *
+FROM gym;
 
-
+UPDATE user
+SET gym_id = 10
+WHERE id = 51;
