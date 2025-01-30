@@ -49,7 +49,10 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
     // # 트레이너 프로필 생성
     @Transactional
     @Override
-    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO, PrincipalDetails user, List<String> skills, List<MultipartFile> images) {
+    public boolean createTrainerProfile(TrainerProfileDTO trainerProfileDTO,
+                                        PrincipalDetails user,
+                                        List<String> skills,
+                                        List<MultipartFile> images) {
         try {
 
 //            User trainer  = user.getUser();

@@ -5,6 +5,7 @@ import com.lec.spring.training.domain.Certification;
 import com.lec.spring.training.domain.GrantStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ public class TrainerProfileDTO {
 
     private String content;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date career;
 
 //    private List<Certification> certificationList = new ArrayList<>();
