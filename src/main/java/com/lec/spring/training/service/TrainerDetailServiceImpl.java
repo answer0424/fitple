@@ -84,7 +84,7 @@ public class TrainerDetailServiceImpl implements TrainerDetailService {
         User user = userRepository.findByNickname(nickname);
 
         // 트레이너 프로필 조회
-        TrainerProfile trainerProfile = trainerProfileRepository.findByTrainerId(users.getUsername());
+        TrainerProfile trainerProfile = trainerProfileRepository.findByTrainerId(user.getId());
 
         return TrainerProfileDTO.builder()
                 .trainerId(trainerProfile.getTrainer().getId())

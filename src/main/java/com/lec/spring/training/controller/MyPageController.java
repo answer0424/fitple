@@ -60,36 +60,25 @@ public class MyPageController{
 
 
     //[트레이너 페이지 가져오기]
-    @GetMapping("/member/detail")
-    public ResponseEntity<Object> getMemberDetail(String nickname,@AuthenticationPrincipal PrincipalDetails user) {
-        return new ResponseEntity<>(trainerDetailService.getTrainerProfileByNickname(nickname,user), HttpStatus.OK);
 
-    }
 
 
     // [트레이너 상세페이지 작성]
     /*메소드와 메소드 사이에 정보를 보낼 때는 매개변수로 보내는 것을 잊지말자.!*/
     @PostMapping(value = "/member/detail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Boolean> createTrainerProfile(
-            @RequestPart("trainerProfileDTO") String trainerProfileDTOJson,
+            @ModelAttribute("trainerProfileDTO") TrainerProfileDTO trainerProfileDTO,
             @AuthenticationPrincipal PrincipalDetails user,
-            @RequestPart("skills") List<String> skills,
-            @RequestPart(value = "img", required = false) List<MultipartFile> image
+            @ModelAttribute("skills") List<String> skills,
+            @RequestPart("img") List<MultipartFile> image
     ) throws JsonProcessingException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        TrainerProfileDTO trainerProfileDTO = objectMapper.readValue(trainerProfileDTOJson, TrainerProfileDTO.class);
-        System.out.println("traineProfileDTO:" + trainerProfileDTO);
-
 
         // 비어있는 필드를 체크 (예시: trainerId가 없으면 400 오류)
         if(trainerProfileDTO.getTrainerId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         // 트레이너 프로필 생성 서비스 호출
         boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, user, skills, image);
-
 
         // 결과 반환
         if(result){
@@ -103,11 +92,10 @@ public class MyPageController{
     // [트레이너 상세페이지 수정]
     @PatchMapping(value = "/member/detail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Boolean> updateTrainerProfile(
-            @RequestPart("trainerProfileDTO") TrainerProfileDTO trainerProfileDTO,
+            @ModelAttribute("trainerProfileDTO") TrainerProfileDTO trainerProfileDTO,
             @AuthenticationPrincipal PrincipalDetails user,
-            @RequestPart("skills") List<String> skills,
+            @ModelAttribute("skills") List<String> skills,
             @RequestPart(value = "img", required = false) List<MultipartFile> image
-
     ) throws IOException {
         boolean result = trainerDetailService.updateTrainerProfile(trainerProfileDTO,skills,image);
         if(result){

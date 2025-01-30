@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TrainerProfileRepository extends JpaRepository<TrainerProfile, Long> {
 
-    TrainerProfile findByTrainerId(String name);
+    TrainerProfile findByTrainerId(Long id);
 }
