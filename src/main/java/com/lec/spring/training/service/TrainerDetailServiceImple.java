@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +27,10 @@ public class TrainerDetailServiceImple {
     // #트레이너 프로필 생성
 
     public TrainerProfile createTrainerProfile(User trainer, Integer perPrice, String skills, String content,
-                                               Date career, GrantStatus isAccess, List<Certification> certifications) {
+                                               LocalDate career, GrantStatus isAccess, List<Certification> certifications) {
         TrainerProfile trainerProfile = TrainerProfile.builder()
                 .trainer(trainer)
                 .perPrice(perPrice)
-                .skills(skills)
                 .content(content)
                 .career(career)
                 .isAccess(isAccess)
@@ -58,12 +58,11 @@ public class TrainerDetailServiceImple {
 
     // # 트레이너 정보 수정
     public TrainerProfile updateTrainerProfile(Long id, Integer perPrice, String skills, String content,
-                                               Date career, GrantStatus isAccess, List<Certification> certifications) {
+                                               LocalDate career, GrantStatus isAccess, List<Certification> certifications) {
         TrainerProfile trainerProfile = trainerProfileRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 트레이너 프로필이 존재하지 않습니다."));
 
         if (perPrice != null) trainerProfile.setPerPrice(perPrice);
-        if (skills != null) trainerProfile.setSkills(skills);
         if (content != null) trainerProfile.setContent(content);
         if (career != null) trainerProfile.setCareer(career);
         if (isAccess != null) trainerProfile.setIsAccess(isAccess);

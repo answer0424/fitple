@@ -3,7 +3,9 @@ package com.lec.spring.training.domain;
 import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -30,7 +32,8 @@ public class TrainerProfile {
     private String content;
 
     @Column(nullable = false)
-    private Date career;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate career;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
