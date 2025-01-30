@@ -59,10 +59,6 @@ public class MyPageController{
     //- 회원 일정 불러오기
 
 
-    //[트레이너 페이지 가져오기]
-
-
-
     // [트레이너 상세페이지 작성]
     /*메소드와 메소드 사이에 정보를 보낼 때는 매개변수로 보내는 것을 잊지말자.!*/
     @PostMapping(value = "/member/detail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -73,12 +69,16 @@ public class MyPageController{
             @RequestPart("img") List<MultipartFile> image
     ) throws JsonProcessingException {
 
+
+
         // 비어있는 필드를 체크 (예시: trainerId가 없으면 400 오류)
         if(trainerProfileDTO.getTrainerId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         // 트레이너 프로필 생성 서비스 호출
         boolean result = trainerDetailService.createTrainerProfile(trainerProfileDTO, user, skills, image);
+
 
         // 결과 반환
         if(result){
@@ -96,6 +96,7 @@ public class MyPageController{
             @AuthenticationPrincipal PrincipalDetails user,
             @ModelAttribute("skills") List<String> skills,
             @RequestPart(value = "img", required = false) List<MultipartFile> image
+
     ) throws IOException {
         boolean result = trainerDetailService.updateTrainerProfile(trainerProfileDTO,skills,image);
         if(result){
