@@ -909,9 +909,9 @@ WHERE username = 'Trainer65';
 
 # certification
 INSERT INTO certification (id, trainer_profile_id, credentials, skills)
-VALUES (1, 1, 'img/1.jpg', '경력'),
-       (2, 1, 'img/2.jpg', '경력'),
-       (3, 1, 'img/3.jpg', '경력'),
+VALUES (1, 1, '/uploads/1.jpg', '경력'),
+       (2, 1, '/uploads/2.jpg', '경력'),
+       (3, 1, '/uploads/3.jpg', '경력'),
        (4, 2, 'img/4.jpg', '경력'),
        (5, 2, 'img/5.jpg', '경력'),
        (6, 2, 'img/6.jpg', '경력'),
@@ -1274,5 +1274,9 @@ SELECT *
 FROM User;
 SELECT *
 FROM HBTI;
+SELECT *
+FROM trainer_profile;
+SELECT *
+FROM certification;
 
 
