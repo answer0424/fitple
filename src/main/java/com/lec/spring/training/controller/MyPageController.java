@@ -59,6 +59,14 @@ public class MyPageController{
     //- 회원 일정 불러오기
 
 
+    //[트레이너 페이지 가져오기]
+    @GetMapping("/member/detail")
+    public ResponseEntity<Object> getMemberDetail(String nickname,@AuthenticationPrincipal PrincipalDetails user) {
+        return new ResponseEntity<>(trainerDetailService.getTrainerProfileByNickname(nickname,user), HttpStatus.OK);
+
+    }
+
+
     // [트레이너 상세페이지 작성]
     /*메소드와 메소드 사이에 정보를 보낼 때는 매개변수로 보내는 것을 잊지말자.!*/
     @PostMapping(value = "/member/detail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
