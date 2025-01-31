@@ -4,9 +4,9 @@ import com.lec.spring.base.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -32,7 +32,7 @@ public class TrainerProfile {
     private String content;
 
     @Column(nullable = false)
-    private Date career;
+    private LocalDate career;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
