@@ -3,6 +3,9 @@ package com.lec.spring.training.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -22,16 +25,14 @@ public class Reservation {
     private Training training;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReservationStatus status = ReservationStatus.운동전;;
 
     @Column(name = "startTime")
-    @Temporal(TemporalType.TIME)
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @Column
     private Integer exerciseTime;
