@@ -58,8 +58,7 @@ public class HbtiService {
      */
     private Map<String, Object> loadHbtiData() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonContent = Files.readString(jsonFilePath);
-        return mapper.readValue(jsonContent, new TypeReference<Map<String, Object>>() {});
+        return mapper.readValue(hbtiJsonContent, new TypeReference<Map<String, Object>>() {});
     }
     /**
      * 답변을 기반으로 각 성향의 퍼센트를 계산
