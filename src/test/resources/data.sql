@@ -531,7 +531,7 @@ VALUES
 ;
 
 
- INSERT INTO Training (user_id, trainer_id, times, total_stamps, coupons) VALUES
+INSERT INTO Training (user_id, trainer_id, times, total_stamps, coupons) VALUES
                                                                             (1, 51, 10, 5, 0),
                                                                             (2, 52, 15, 7, 1),
                                                                             (3, 53, 20, 9, 2),
