@@ -71,8 +71,7 @@ public class HbtiController {
             Map<String, Object> hbtiData = hbtiService.getHbtiDataByType(hbtiType);
             return ResponseEntity.ok(hbtiData);
         } catch (IOException e) {
-            return ResponseEntity.internalServerError()
-                    .body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
@@ -89,8 +88,8 @@ public class HbtiController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         } catch (IOException e) {
-            return ResponseEntity.internalServerError()
-                    .body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
+
         }
     }
 
@@ -105,8 +104,7 @@ public class HbtiController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         } catch (IOException e) {
-            return ResponseEntity.internalServerError()
-                    .body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
+            return ResponseEntity.internalServerError().body(Map.of("error", "HBTI 데이터를 로드하는 중 문제가 발생했습니다."));
         }
     }
 }

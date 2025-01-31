@@ -26,5 +26,8 @@ public class Certification {
 
     @Column(name = "credentials")
     private String credentials;
+
+    @Column(nullable = false)
+    private String skills;
 }
 
