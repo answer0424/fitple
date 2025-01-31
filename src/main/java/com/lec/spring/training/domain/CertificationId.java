@@ -19,7 +19,6 @@ import java.io.Serializable;
 public class CertificationId implements Serializable {
 
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "trainerProfileId")
